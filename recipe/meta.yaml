@@ -15,25 +15,22 @@ source:
 build:
   number: 0
   features:
-    - vc9  # [win and py27]
-    - vc14  # [win and (py35 and py36)]
+    - vc{{ vc }}  # [win]
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
     - m2w64-xz  # [win]
     - setuptools
     - cmake  # [win]
-    - numpy 1.11.*
+    - numpy
     - libgdal {{ version }}
-    - vc 9  # [win and py27]
-    - vc 14  # [win and (py35 and py36)]
   run:
     - python
-    - numpy >=1.11
+    - {{ pin_compatible('numpy') }}
     - libgdal {{ version }}
-    - vc 9  # [win and py27]
-    - vc 14  # [win and (py35 and py36)]
 
 test:
   files:
