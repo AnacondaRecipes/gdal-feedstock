@@ -1,3 +1,4 @@
+# TODO: this recipe and libgdal should be merged into a single recipe with 2 outputs
 {% set version = "2.2.2" %}
 
 package:
@@ -20,6 +21,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
   host:
     - python
     - setuptools
@@ -73,3 +75,4 @@ extra:
     - ocefpaf
     - kmuehlbauer
     - gillins
+    - msarahan
