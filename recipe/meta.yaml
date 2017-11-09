@@ -14,9 +14,12 @@ source:
     - install_scripts.patch
 
 build:
-  number: 0
-  features:
-    - vc{{ vc }}  # [win]
+  number: 1
+  run_exports:
+    # make run_exports add appropriate libdal run dep, so that people including gdal as dep
+    #    don't forget to include it as a run dep
+    # no idea about abi compat, going with minor pin
+    - {{ pin_compatible('libgdal', max_pin='x.x') }}
 
 requirements:
   build:
@@ -31,7 +34,6 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - libgdal {{ version }}
 
 test:
   files:
