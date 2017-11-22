@@ -7,57 +7,57 @@ from osgeo import osr
 from osgeo.gdal_array import *
 
 driver = gdal.GetDriverByName("netCDF")
-assert driver is not None
+assert driver is not None, "netcdf not linked in correctly"
 
 driver = gdal.GetDriverByName("HDF4")
-assert driver is not None
+assert driver is not None, "hdf4 not linked in correctly"
 
 driver = gdal.GetDriverByName("HDF5")
-assert driver is not None
+assert driver is not None, "hdf5 not linked in correctly"
 
 driver = gdal.GetDriverByName("GTiff")
-assert driver is not None
+assert driver is not None, "tiff not linked in correctly"
 
 driver = gdal.GetDriverByName("PNG")
-assert driver is not None
+assert driver is not None, "png not linked in correctly"
 
 driver = gdal.GetDriverByName("JPEG")
-assert driver is not None
+assert driver is not None, "jpeg not linked in correctly"
 
 driver = gdal.GetDriverByName("GPKG")
 assert driver is not None
 
 # only available when libkea successfully linked in.
 driver = gdal.GetDriverByName("KEA")
-assert driver is not None
+assert driver is not None, "kealib not linked in correctly"
 
 # only available when xerces-c++ successfully linked in.
 driver = ogr.GetDriverByName("GML")
-assert driver is not None
+assert driver is not None, "xerces-c not linked in correctly"
 
 # only available when openjpeg successfully linked in.
 driver = gdal.GetDriverByName("JP2OpenJPEG")
-assert driver is not None
+assert driver is not None, "openjpeg not linked in correctly"
 
 # only available when curl successfully linked in.
 driver = gdal.GetDriverByName("WCS")
-assert driver is not None
+assert driver is not None, "curl not linked in correctly"
 
 # only available when freexl successfully linked in.
 driver = ogr.GetDriverByName("XLS")
-assert driver is not None
+assert driver is not None, "freexl not linked in correctly"
 
 # only available when expat successfully linked in.
 driver = ogr.GetDriverByName("KML")
-assert driver is not None
+assert driver is not None, "kml not linked in correctly"
 
 # only available when SQLite successfully linked in.
 driver = ogr.GetDriverByName("SQLite")
-assert driver is not None
+assert driver is not None, "sqlite not linked in correctly"
 
 # only available when PostgreSQL successfully linked in.
 driver = ogr.GetDriverByName("PostgreSQL")
-assert driver is not None
+assert driver is not None, "postgres not linked in correctly"
 
 def has_geos():
     pnt1 = ogr.CreateGeometryFromWkt( 'POINT(10 20)' )
