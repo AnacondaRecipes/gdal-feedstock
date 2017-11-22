@@ -8,7 +8,7 @@ from osgeo import osr
 # See https://github.com/conda-forge/gdal-feedstock/issues/131
 from osgeo.gdal_array import *
 
-drivers = ['netCDF', 'HDF4', 'HDF5', 'GTiff', 'PNG', 'JPEG', 'GPKG', 'KEA', 
+drivers = ['netCDF', 'HDF4', 'HDF5', 'GTiff', 'PNG', 'JPEG', 'GPKG', 'KEA',
     'JP2OpenJPEG', 'WCS', 'PDF', 'FITS', 'TileDB']
 for driver in drivers:
     print(driver)
