@@ -19,7 +19,8 @@ for driver in drivers:
     if sys.platform == 'darwin':
         print('Skipping driver test {} on OSX!'.format(driver))
     else:
-        assert ogr.GetDriverByName(driver)
+        assert ogr.GetDriverByName(driver), "%s not linked in correctly" % driver
+
 
 def has_geos():
     pnt1 = ogr.CreateGeometryFromWkt( 'POINT(10 20)' )
