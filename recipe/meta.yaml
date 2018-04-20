@@ -1,76 +1,159 @@
 {% set version = "2.2.4" %}
 
 package:
-  name: gdal
+  name: gdal-split
   version: {{ version }}
 
 source:
   url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
   sha256: 441eb1d1acb35238ca43a1a0a649493fc91fdcbab231d0747e9d462eea192278
   patches:
-    - clang.patch  # [osx]
-    - prepend-dll.patch  # [win]
+    # Fixes compilation problems with JPEG.
+    # https://lists.osgeo.org/pipermail/gdal-dev/2016-January/043443.html
+    - disable_jpeg12.patch
+    # BUILT_AS_DYNAMIC_LIB.
+    - windowshdf5.patch
+    # Use multiple cores on Windows.
+    - multiprocessor.patch
+    # Since MacOS X 10.9, clang no longer accepts -mno-fused-madd.
+    - clang.patch
+    # ensure that our search path on windows includes our Library\bin folder.  Not sure this is necessary?
+    - prepend-dll.patch           # [win]
+    # add scripts to setup.py so that they get installed
     - install_scripts.patch
 
 build:
   number: 1
-  run_exports:
-    # make run_exports add appropriate libdal run dep, so that people including gdal as dep
-    #    don't forget to include it as a run dep
-    # no idea about abi compat, going with minor pin
-    - {{ pin_compatible('libgdal', max_pin='x.x') }}
 
 requirements:
   build:
+    # pins removed here because they are provided by name matching in conda_build_config.yaml
+    - cmake  # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    # - {{ cdt('libxrender-devel') }}  # [linux]
+    # - {{ cdt('libxext-devel') }}     # [linux]
+    # - {{ cdt('libxau-devel') }}      # [linux]
   host:
-    - python
-    - m2w64-xz  # [win]
-    - setuptools
-    - cmake  # [win]
-    - numpy
-    - libgdal {{ version }}
-  run:
-    - python
-    - {{ pin_compatible('numpy') }}
+    - libcurl
+    - expat
+    - freexl
+    - geos
+    - giflib  # [not win]
+    - hdf4
+    - hdf5
+    - jpeg
+    - json-c  # [not win]
+    - kealib
+    - libdap4  # [not win]
+    - libkml
+    - libnetcdf
+    - libpng
+    - libspatialite
+    - libtiff
+    - openjpeg
+    - pkg-config  # [not win]
+    - poppler  # [not win]
+    - postgresql
+    - proj4
+    - sqlite
+    - xerces-c
+    - zlib
+    - xz  # [not win or vc>=14]
 
-test:
-  files:
-    - extra_tests.py
-    - test_data/sites.dbf
-    - test_data/sites.sbn
-    - test_data/sites.sbx
-    - test_data/sites.shp
-    - test_data/sites.shx
-  imports:
-    - osr
-    - gdal
-    - gdalconst
-    - osgeo
-    - osgeo.ogr
-    - osgeo.gdal
-    - osgeo._gdal
-    - osgeo._gdalconst
-    - osgeo._ogr
-    - osgeo._osr
-  commands:
-    - gdal_grid --version
-    - gdal_rasterize --version
-    - gdal_translate --version
-    - gdaladdo --version
-    - gdalenhance --version
-    - gdalwarp --version
-    - gdalinfo --formats
-    - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
+outputs:
+  - name: libgdal
+    script: install_lib.sh   # [unix]
+    script: install_lib.bat   # [win]
+    build:
+      run_exports:
+        # no idea, going with minor pin
+        - {{ pin_subpackage('libgdal', max_pin='x.x') }}
+    requirements:
+      host:
+        - libcurl
+        - expat
+        - freexl
+        - geos
+        - giflib  # [not win]
+        - hdf4
+        - hdf5
+        - jpeg
+        - json-c  # [not win]
+        - kealib
+        - libdap4  # [not win]
+        - libkml
+        - libnetcdf
+        - libpng
+        - libspatialite
+        - libtiff
+        - openjpeg
+        - pkg-config  # [not win]
+        - poppler  # [not win]
+        - postgresql
+        - proj4
+        - sqlite
+        - xerces-c
+        - zlib
+        - xz  # [not win or vc>=14]
+    test:
+      files:
+        - test_data
+      commands:
+        - gdal_grid --version
+        - gdal_rasterize --version
+        - gdal_translate --version
+        - gdaladdo --version
+        - gdalenhance --version
+        - gdalwarp --version
+        - gdalinfo --formats
+        - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
+        - conda inspect linkages -p $PREFIX libgdal  # [not win]
+        - conda inspect objects -p $PREFIX libgdal  # [osx]
+    about:
+      summary: 'The Geospatial Data Abstraction Library (GDAL).'
+
+  - name: gdal
+    script: install_python.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+      host:
+        - python
+        - setuptools
+        - cmake  # [win]
+        - numpy
+        - libgdal {{ version }}
+      run:
+        - python
+        - {{ pin_compatible('numpy') }}
+    test:
+      files:
+        - extra_tests.py
+        - test_data/sites.dbf
+        - test_data/sites.sbn
+        - test_data/sites.sbx
+        - test_data/sites.shp
+        - test_data/sites.shx
+      imports:
+        - osr
+        - gdal
+        - gdalconst
+        - osgeo
+        - osgeo.ogr
+        - osgeo.gdal
+        - osgeo._gdal
+        - osgeo._gdalconst
+        - osgeo._ogr
+        - osgeo._osr
+      about:
+        summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
 about:
   home: http://www.gdal.org/
   license: MIT
   license_file: LICENSE.TXT
-  summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
 extra:
   recipe-maintainers:
