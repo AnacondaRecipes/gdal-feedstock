@@ -28,6 +28,7 @@ requirements:
     - pkg-config >=0.21  # [not win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - pkg-config  # [not win]
     # - {{ cdt('libxrender-devel') }}  # [linux]
     # - {{ cdt('libxext-devel') }}     # [linux]
     # - {{ cdt('libxau-devel') }}      # [linux]
@@ -45,6 +46,7 @@ requirements:
     - jpeg
     - json-c  # [not win]
     - kealib
+    - libcurl
     - libdap4  # [not win]
     - libkml
     - libnetcdf
@@ -95,7 +97,9 @@ outputs:
         - icu
         - jpeg
         - json-c  # [not win]
+        - icu
         - kealib
+        - libcurl
         - libdap4  # [not win]
         - libkml
         - libnetcdf
