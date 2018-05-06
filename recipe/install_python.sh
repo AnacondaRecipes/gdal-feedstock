@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pushd swig/python
+pushd gdal/swig/python
 
 $PYTHON setup.py build_ext \
         --include-dirs $INCLUDE_PATH \

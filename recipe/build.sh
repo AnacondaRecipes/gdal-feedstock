@@ -2,37 +2,11 @@
 
 set -e # Abort on error.
 
-export PING_SLEEP=30s
-export WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export BUILD_OUTPUT=$WORKDIR/build.out
-
-touch $BUILD_OUTPUT
-
-dump_output() {
-   echo Tailing the last 500 lines of output:
-   tail -500 $BUILD_OUTPUT
-}
-error_handler() {
-  echo ERROR: An error was encountered with the build.
-  dump_output
-  exit 1
-}
-
-# If an error occurs, run our error handler to output a tail of the build.
-trap 'error_handler' ERR
-
-# Set up a repeating loop to send some output to Travis.
-bash -c "while true; do echo \$(date) - building ...; sleep $PING_SLEEP; done" &
-PING_LOOP_PID=$!
-
-## START BUILD
-# Get rid of any `.la` from defaults.
-rm -rf $PREFIX/lib/*.la
+pushd gdal
 
 # Force python bindings to not be built.
 unset PYTHON
 
-export LDFLAGS="$LDFLAGS -Wl,-rpath,$PREFIX/lib -L$PREFIX/lib"
 export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
 
 # Filter out -std=.* from CXXFLAGS as it disrupts checks for C++ language levels.
@@ -40,9 +14,6 @@ re='(.*[[:space:]])\-std\=[^[:space:]]*(.*)'
 if [[ "${CXXFLAGS}" =~ $re ]]; then
     export CXXFLAGS="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
 fi
-
-# `--without-pam` was removed.
-# See https://github.com/conda-forge/gdal-feedstock/pull/47 for the discussion.
 
 bash configure --prefix=$PREFIX \
             --host=$HOST \
@@ -75,11 +46,7 @@ bash configure --prefix=$PREFIX \
             --verbose \
             $OPTS
 
-make -j $CPU_COUNT ${VERBOSE_AT} >> $BUILD_OUTPUT 2>&1
-## END BUILD
+make -j $CPU_COUNT ${VERBOSE_AT}
 
-# The build finished without returning an error so dump a tail of the output.
-dump_output
+popd
 
-# Nicely terminate the ping output loop.
-kill $PING_LOOP_PID

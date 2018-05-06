@@ -1,16 +1,14 @@
-{% set version = "2.2.3" %}
+{% set version = "2.3.0" %}
 
 package:
   name: gdal-split
   version: {{ version }}
 
 source:
-  url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
-  sha256: a328d63d476b3653f5a25b5f7971e87a15cdf8860ab0729d4b1157ba988b8d0b
+  fn: gdal-{{ version }}.tar.gz
+  url: https://github.com/OSGeo/gdal/archive/v{{ version }}.tar.gz
+  sha256: e0f4b464c8fc37d31504c9696cb02511a38287f19471cf3979f44cba7f03b1af
   patches:
-    # Fixes compilation problems with JPEG.
-    # https://lists.osgeo.org/pipermail/gdal-dev/2016-January/043443.html
-    - disable_jpeg12.patch
     # BUILT_AS_DYNAMIC_LIB.
     - windowshdf5.patch
     # Use multiple cores on Windows.
@@ -19,11 +17,9 @@ source:
     - clang.patch
     # ensure that our search path on windows includes our Library\bin folder.  Not sure this is necessary?
     - prepend-dll.patch           # [win]
-    # add scripts to setup.py so that they get installed
-    - install_scripts.patch
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -31,28 +27,34 @@ requirements:
     - cmake  # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - pkg-config  # [not win]
     # - {{ cdt('libxrender-devel') }}  # [linux]
     # - {{ cdt('libxext-devel') }}     # [linux]
     # - {{ cdt('libxau-devel') }}      # [linux]
   host:
-    - libcurl
     - expat
     - freexl
     - geos
     - giflib  # [not win]
     - hdf4
     - hdf5
+    - icu
     - jpeg
     - json-c  # [not win]
     - kealib
+    - libcurl
     - libdap4  # [not win]
     - libkml
     - libnetcdf
     - libpng
+    - libpq
     - libspatialite
     - libtiff
+    - libuuid
+    - libxml2
     - openjpeg
-    - pkg-config  # [not win]
+    - openssl
+    - pcre
     - poppler  # [not win]
     - postgresql
     - proj4
@@ -70,8 +72,13 @@ outputs:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
     requirements:
+      build:
+        # ranlib used at install time
+        - {{ compiler('c') }}
+        # libstdc++ is needed in requirements/run
+        - {{ compiler('cxx') }}
+        - pkg-config  # [not win]
       host:
-        - libcurl
         - expat
         - freexl
         - geos
@@ -80,15 +87,21 @@ outputs:
         - hdf5
         - jpeg
         - json-c  # [not win]
+        - icu
         - kealib
+        - libcurl
         - libdap4  # [not win]
         - libkml
         - libnetcdf
         - libpng
+        - libpq
         - libspatialite
         - libtiff
+        - libuuid
+        - libxml2
         - openjpeg
-        - pkg-config  # [not win]
+        - openssl
+        - pcre
         - poppler  # [not win]
         - postgresql
         - proj4
@@ -124,10 +137,11 @@ outputs:
         - setuptools
         - cmake  # [win]
         - numpy
-        - libgdal {{ version }}
+        - {{ pin_subpackage('libgdal', exact=True) }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
+        - {{ pin_subpackage('libgdal', exact=True) }}
     test:
       files:
         - extra_tests.py
@@ -153,11 +167,12 @@ outputs:
 about:
   home: http://www.gdal.org/
   license: MIT
-  license_file: LICENSE.TXT
+  license_file: gdal/LICENSE.TXT
 
 extra:
   recipe-maintainers:
-    - ocefpaf
-    - kmuehlbauer
     - gillins
+    - kmuehlbauer
+    - mingwandroid
     - msarahan
+    - ocefpaf
