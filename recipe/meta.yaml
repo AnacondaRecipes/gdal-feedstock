@@ -42,16 +42,23 @@ requirements:
     - giflib  # [not win]
     - hdf4
     - hdf5
+    - icu
     - jpeg
     - json-c  # [not win]
     - kealib
+    - libcurl
     - libdap4  # [not win]
     - libkml
     - libnetcdf
     - libpng
+    - libpq
     - libspatialite
     - libtiff
+    - libuuid
+    - libxml2
     - openjpeg
+    - openssl
+    - pcre
     - poppler  # [not win]
     - postgresql
     - proj4
@@ -84,15 +91,21 @@ outputs:
         - hdf5
         - jpeg
         - json-c  # [not win]
+        - icu
         - kealib
         - libcurl
         - libdap4  # [not win]
         - libkml
         - libnetcdf
         - libpng
+        - libpq
         - libspatialite
         - libtiff
+        - libuuid
+        - libxml2
         - openjpeg
+        - openssl
+        - pcre
         - poppler  # [not win]
         - postgresql
         - proj4
