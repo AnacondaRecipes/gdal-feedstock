@@ -1,12 +1,12 @@
-{% set version = "2.2.3" %}
+{% set version = "2.2.4" %}
 
 package:
   name: gdal-split
   version: {{ version }}
 
 source:
-  url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
-  sha256: a328d63d476b3653f5a25b5f7971e87a15cdf8860ab0729d4b1157ba988b8d0b
+  url: https://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
+  sha256: 441eb1d1acb35238ca43a1a0a649493fc91fdcbab231d0747e9d462eea192278
   patches:
     # Fixes compilation problems with JPEG.
     # https://lists.osgeo.org/pipermail/gdal-dev/2016-January/043443.html
@@ -23,7 +23,7 @@ source:
     - install_scripts.patch
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -31,11 +31,11 @@ requirements:
     - cmake  # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - pkg-config  # [not win]
     # - {{ cdt('libxrender-devel') }}  # [linux]
     # - {{ cdt('libxext-devel') }}     # [linux]
     # - {{ cdt('libxau-devel') }}      # [linux]
   host:
-    - libcurl
     - expat
     - freexl
     - geos
@@ -52,7 +52,6 @@ requirements:
     - libspatialite
     - libtiff
     - openjpeg
-    - pkg-config  # [not win]
     - poppler  # [not win]
     - postgresql
     - proj4
@@ -70,8 +69,13 @@ outputs:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
     requirements:
+      build:
+        # ranlib used at install time
+        - {{ compiler('c') }}
+        # libstdc++ is needed in requirements/run
+        - {{ compiler('cxx') }}
+        - pkg-config  # [not win]
       host:
-        - libcurl
         - expat
         - freexl
         - geos
@@ -81,6 +85,7 @@ outputs:
         - jpeg
         - json-c  # [not win]
         - kealib
+        - libcurl
         - libdap4  # [not win]
         - libkml
         - libnetcdf
@@ -88,7 +93,6 @@ outputs:
         - libspatialite
         - libtiff
         - openjpeg
-        - pkg-config  # [not win]
         - poppler  # [not win]
         - postgresql
         - proj4
@@ -157,7 +161,8 @@ about:
 
 extra:
   recipe-maintainers:
-    - ocefpaf
-    - kmuehlbauer
     - gillins
+    - kmuehlbauer
+    - mingwandroid
     - msarahan
+    - ocefpaf
