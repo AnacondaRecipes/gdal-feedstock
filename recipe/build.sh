@@ -2,8 +2,6 @@
 
 set -e # Abort on error.
 
-pushd gdal
-
 # Force python bindings to not be built.
 unset PYTHON
 
@@ -47,6 +45,3 @@ bash configure --prefix=$PREFIX \
             $OPTS
 
 make -j $CPU_COUNT ${VERBOSE_AT}
-
-popd
-

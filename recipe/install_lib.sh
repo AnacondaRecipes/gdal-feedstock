@@ -1,5 +1,3 @@
-pushd gdal
-
 make install
 
 # Make sure GDAL_DATA and set and still present in the package.
@@ -11,6 +9,4 @@ mkdir -p $DEACTIVATE_DIR
 
 cp $RECIPE_DIR/scripts/activate.sh $ACTIVATE_DIR/gdal-activate.sh
 cp $RECIPE_DIR/scripts/deactivate.sh $DEACTIVATE_DIR/gdal-deactivate.sh
-
-popd
 

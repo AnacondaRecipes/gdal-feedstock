@@ -5,9 +5,8 @@ package:
   version: {{ version }}
 
 source:
-  fn: gdal-{{ version }}.tar.gz
-  url: https://github.com/OSGeo/gdal/archive/v{{ version }}.tar.gz
-  sha256: e0f4b464c8fc37d31504c9696cb02511a38287f19471cf3979f44cba7f03b1af
+  url: https://download.osgeo.org/gdal/2.3.0/gdal-{{ version }}RC1.tar.gz
+  sha256: 2944bbfee009bf1ca092716e4fd547cb4ae2a1e8816186236110c22f11c7e1e9
   patches:
     # BUILT_AS_DYNAMIC_LIB.
     - windowshdf5.patch
@@ -169,7 +168,7 @@ outputs:
 about:
   home: http://www.gdal.org/
   license: MIT
-  license_file: gdal/LICENSE.TXT
+  license_file: LICENSE.TXT
 
 extra:
   recipe-maintainers:
