@@ -54,7 +54,7 @@ requirements:
     - libpq
     - libspatialite
     - libtiff
-    - libuuid
+    - libuuid  # [unix]
     - libxml2
     - openjpeg
     - openssl
@@ -101,7 +101,7 @@ outputs:
         - libpq
         - libspatialite
         - libtiff
-        - libuuid
+        - libuuid  # [unix]
         - libxml2
         - openjpeg
         - openssl
