@@ -8,6 +8,7 @@ source:
   url: https://download.osgeo.org/gdal/2.3.0/gdal-{{ version }}RC1.tar.gz
   sha256: 2944bbfee009bf1ca092716e4fd547cb4ae2a1e8816186236110c22f11c7e1e9
   patches:
+    - 124f0343436d1267319ac627fc220530091b41ea.patch
     # BUILT_AS_DYNAMIC_LIB.
     - windowshdf5.patch
     # Use multiple cores on Windows.
