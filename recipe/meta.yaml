@@ -96,6 +96,7 @@ outputs:
         - kealib
         - libcurl
         - libdap4  # [not win]
+        - libiconv  # [osx]
         - libkml
         - libnetcdf
         - libpng
