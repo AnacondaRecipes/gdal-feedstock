@@ -13,8 +13,6 @@ source:
     - windowshdf5.patch
     # Use multiple cores on Windows.
     - multiprocessor.patch
-    # Since MacOS X 10.9, clang no longer accepts -mno-fused-madd.
-    - clang.patch
     # ensure that our search path on windows includes our Library\bin folder.  Not sure this is necessary?
     - prepend-dll.patch           # [win]
 
@@ -122,8 +120,6 @@ outputs:
         - gdalwarp --version
         - gdalinfo --formats
         - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
-        - conda inspect linkages -p $PREFIX libgdal  # [not win]
-        - conda inspect objects -p $PREFIX libgdal  # [osx]
     about:
       summary: 'The Geospatial Data Abstraction Library (GDAL).'
 
