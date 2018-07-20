@@ -24,7 +24,7 @@ source:
     - install_scripts.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -55,7 +55,7 @@ requirements:
     - libpq
     - libspatialite
     - libtiff
-    - libuuid  # [unix]
+    - libuuid  # [not osx]
     - libxml2
     - openjpeg
     - openssl
