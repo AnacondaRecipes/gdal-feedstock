@@ -17,7 +17,7 @@ source:
     - prepend-dll.patch           # [win]
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
@@ -96,7 +96,7 @@ outputs:
         - libpq
         - libspatialite
         - libtiff
-        - libuuid
+        - libuuid  # [not osx]
         - libxml2
         - openjpeg
         - openssl
