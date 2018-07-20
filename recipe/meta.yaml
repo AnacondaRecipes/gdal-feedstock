@@ -55,7 +55,7 @@ requirements:
     - libpq
     - libspatialite
     - libtiff
-    - libuuid  # [not osx]
+    - libuuid  # [linux]
     - libxml2
     - openjpeg
     - openssl
