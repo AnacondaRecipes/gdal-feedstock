@@ -8,7 +8,6 @@ source:
   url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
   sha256: c3765371ce391715c8f28bd6defbc70b57aa43341f6e94605f04fe3c92468983
   patches:
-    - 124f0343436d1267319ac627fc220530091b41ea.patch
     # BUILT_AS_DYNAMIC_LIB.
     - patches/windowshdf5.patch  # [win]
     # Use multiple cores on Windows.
@@ -199,7 +198,7 @@ about:
   license_file: LICENSE.TXT
   summary: |
     GDAL is a translator library for raster and vector geospatial data formats that is released under an
-    X/MIT style Open Source license by the Open Source Geospatial Foundation. 
+    X/MIT style Open Source license by the Open Source Geospatial Foundation.
 
 extra:
   recipe-maintainers:
