@@ -2,9 +2,6 @@
 
 set -e # Abort on error.
 
-# Force python bindings to not be built.
-unset PYTHON
-
 export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
 
 # Filter out -std=.* from CXXFLAGS as it disrupts checks for C++ language levels.
@@ -42,6 +39,6 @@ bash configure --prefix=$PREFIX \
             --with-xml2=$PREFIX \
             --without-python \
             --verbose \
-            $OPTS
+            ${OPTS}
 
-make -j $CPU_COUNT ${VERBOSE_AT}
+make -j ${CPU_COUNT} ${VERBOSE_AT}

@@ -1,0 +1,15 @@
+diff -urN gdal-2.3.1.orig/swig/python/osgeo/__init__.py gdal-2.3.1/swig/python/osgeo/__init__.py
+--- gdal-2.3.1.orig/swig/python/osgeo/__init__.py	2018-08-12 06:43:11.356986400 -0500
++++ gdal-2.3.1/swig/python/osgeo/__init__.py	2018-08-12 06:49:58.281913100 -0500
+@@ -1,6 +1,11 @@
+ # __init__ for osgeo package.
+ 
+ # making the osgeo package version the same as the gdal version:
++import os
++import sys
++if not '%s\Library\bin' % (sys.prefix) in os.environ['PATH']:
++    os.environ['PATH'] = r'%s\Library\bin;%s' % (sys.prefix, os.environ['PATH'])
++
+ from sys import version_info
+ if version_info >= (2, 6, 0):
+     def swig_import_helper():
