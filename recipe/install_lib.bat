@@ -8,7 +8,7 @@ call "%RECIPE_DIR%\set_bld_opts.bat"
 nmake /f makefile.vc devinstall %BLD_OPTS%
 if errorlevel 1 exit 1
 
-copy *.lib %LIBRARY_LIB%\ || exit 1
+move *.lib %LIBRARY_LIB%\ || exit 1
 if errorlevel 1 exit 1
 
 set ACTIVATE_DIR=%PREFIX%\etc\conda\activate.d
