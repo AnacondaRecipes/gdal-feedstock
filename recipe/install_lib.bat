@@ -1,3 +1,10 @@
+set LIBRARY_INC=%PREFIX%\Library\include
+set LIBRARY_LIB=%PREFIX%\Library\lib
+set LIBRARY_BIN=%PREFIX%\Library\bin
+set LIBRARY_PREFIX=%PREFIX%\Library
+
+call "%RECIPE_DIR%\set_bld_opts.bat"
+
 nmake /f makefile.vc devinstall %BLD_OPTS%
 if errorlevel 1 exit 1
 
