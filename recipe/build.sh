@@ -2,6 +2,9 @@
 
 set -e # Abort on error.
 
+# Force python bindings to not be built.
+unset PYTHON
+
 export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
 
 # Filter out -std=.* from CXXFLAGS as it disrupts checks for C++ language levels.
@@ -9,6 +12,14 @@ re='(.*[[:space:]])\-std\=[^[:space:]]*(.*)'
 if [[ "${CXXFLAGS}" =~ $re ]]; then
     export CXXFLAGS="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
 fi
+
+# See https://github.com/AnacondaRecipes/aggregate/pull/103
+if [[ $target_platform =~ linux.* ]]; then
+  export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,${PREFIX}/lib"
+fi
+
+# `--without-pam` was removed.
+# See https://github.com/conda-forge/gdal-feedstock/pull/47 for the discussion.
 
 bash configure --prefix=$PREFIX \
             --host=$HOST \
