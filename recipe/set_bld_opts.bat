@@ -11,6 +11,7 @@ if "%ARCH%"=="64" (
 if %vc% LEQ 9 set MSVC_VER=1500
 if %vc% GTR 9 set MSVC_VER=1900
 
+:: Need consistent flags between build and install.
 set BLD_OPTS=%WIN64% ^
     MSVC_VER=%MSVC_VER% ^
     GDAL_HOME=%LIBRARY_PREFIX% ^
