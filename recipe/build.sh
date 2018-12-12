@@ -21,20 +21,21 @@ bash configure --prefix=$PREFIX \
             --with-hdf5=$PREFIX \
             --with-jpeg=$PREFIX \
             --with-kea=$PREFIX/bin/kea-config \
+            --with-libiconv-prefix=$PREFIX \
             --with-libjson-c=$PREFIX \
-            --with-libz=$PREFIX \
             --with-libkml=$PREFIX \
-            --with-libtiff=$PREFIX \
             --with-liblzma=yes \
+            --with-libtiff=$PREFIX \
+            --with-libz=$PREFIX \
             --with-netcdf=$PREFIX \
             --with-openjpeg=$PREFIX \
-            --with-poppler=$PREFIX \
             --with-pcre \
             --with-pg=$PREFIX/bin/pg_config \
             --with-png=$PREFIX \
+            --with-poppler=$PREFIX \
             --with-spatialite=$PREFIX \
             --with-sqlite3=$PREFIX \
-            --with-static-proj4=$PREFIX \
+            --with-proj4=$PREFIX \
             --with-xerces=$PREFIX \
             --with-xml2=$PREFIX \
             --without-python \
