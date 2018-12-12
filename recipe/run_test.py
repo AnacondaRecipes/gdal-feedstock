@@ -1,3 +1,5 @@
+import sys
+
 from osgeo import gdal
 from osgeo import ogr
 from osgeo import osr
@@ -6,65 +8,25 @@ from osgeo import osr
 # See https://github.com/conda-forge/gdal-feedstock/issues/131
 from osgeo.gdal_array import *
 
-driver = gdal.GetDriverByName("netCDF")
-assert driver is not None, "netcdf not linked in correctly"
+drivers = ['netCDF', 'HDF4', 'HDF5', 'GTiff', 'PNG', 'JPEG', 'GPKG', 'KEA', 'JP2OpenJPEG', 'WCS']
+for driver in drivers:
+    print(driver)
+    assert gdal.GetDriverByName(driver)
 
-driver = gdal.GetDriverByName("HDF4")
-assert driver is not None, "hdf4 not linked in correctly"
-
-driver = gdal.GetDriverByName("HDF5")
-assert driver is not None, "hdf5 not linked in correctly"
-
-driver = gdal.GetDriverByName("GTiff")
-assert driver is not None, "tiff not linked in correctly"
-
-driver = gdal.GetDriverByName("PNG")
-assert driver is not None, "png not linked in correctly"
-
-driver = gdal.GetDriverByName("JPEG")
-assert driver is not None, "jpeg not linked in correctly"
-
-driver = gdal.GetDriverByName("GPKG")
-assert driver is not None
-
-# only available when libkea successfully linked in.
-driver = gdal.GetDriverByName("KEA")
-assert driver is not None, "kealib not linked in correctly"
-
-# only available when xerces-c++ successfully linked in.
-driver = ogr.GetDriverByName("GML")
-assert driver is not None, "xerces-c not linked in correctly"
-
-# only available when openjpeg successfully linked in.
-driver = gdal.GetDriverByName("JP2OpenJPEG")
-assert driver is not None, "openjpeg not linked in correctly"
-
-# only available when curl successfully linked in.
-driver = gdal.GetDriverByName("WCS")
-assert driver is not None, "curl not linked in correctly"
-
-# only available when freexl successfully linked in.
-driver = ogr.GetDriverByName("XLS")
-assert driver is not None, "freexl not linked in correctly"
-
-# only available when expat successfully linked in.
-driver = ogr.GetDriverByName("KML")
-assert driver is not None, "kml not linked in correctly"
-
-# only available when SQLite successfully linked in.
-driver = ogr.GetDriverByName("SQLite")
-assert driver is not None, "sqlite not linked in correctly"
-
-# only available when PostgreSQL successfully linked in.
-driver = ogr.GetDriverByName("PostgreSQL")
-assert driver is not None, "postgres not linked in correctly"
+drivers = ['GML', 'XLS', 'KML', 'SQLite', 'PostgreSQL']
+for driver in drivers:
+    print(driver)
+    if sys.platform == 'darwin':
+        print('Skipping driver test {} on OSX!'.format(driver))
+    else:
+        assert ogr.GetDriverByName(driver)
 
 def has_geos():
     pnt1 = ogr.CreateGeometryFromWkt( 'POINT(10 20)' )
     pnt2 = ogr.CreateGeometryFromWkt( 'POINT(30 20)' )
     ogrex = ogr.GetUseExceptions()
     ogr.DontUseExceptions()
-    hasgeos = pnt1.Union( pnt2 ) is not None
+    hasgeos = pnt1.Union(pnt2) is not None
     if ogrex:
         ogr.UseExceptions()
     return hasgeos
@@ -105,3 +67,24 @@ assert list(gen_list(N)) == list(range(N))
 
 # This module does some additional tests.
 import extra_tests
+
+# Test international encoding.
+# https://github.com/conda-forge/libgdal-feedstock/issues/32
+from osgeo import ogr
+
+driver = ogr.GetDriverByName("ESRI Shapefile")
+ds = driver.CreateDataSource("test.shp")
+lyr = ds.CreateLayer("test", options=["ENCODING=GB18030"])
+
+field_defn = ogr.FieldDefn("myfield", ogr.OFTString)
+lyr.CreateField(field_defn)
+
+lyr_defn = lyr.GetLayerDefn()
+feature = ogr.Feature(lyr_defn)
+
+feature.SetField("myfield", "\u5f90\u6c47\u533a")
+
+lyr.CreateFeature(feature)
+
+lyr = None
+ds = None
