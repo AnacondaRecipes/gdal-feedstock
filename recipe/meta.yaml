@@ -133,6 +133,8 @@ outputs:
         - proj
         - tiledb
         - xz  # [not win or vc>=14]
+        - m2w64-xz  # [win]
+        - zlib
     test:
       files:
         - test_data
