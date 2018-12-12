@@ -21,14 +21,10 @@ build:
 
 requirements:
   build:
-    # pins removed here because they are provided by name matching in conda_build_config.yaml
     - cmake  # [win]
+    - pkg-config >=0.21  # [not win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - pkg-config  # [not win]
-    # - {{ cdt('libxrender-devel') }}  # [linux]
-    # - {{ cdt('libxext-devel') }}     # [linux]
-    # - {{ cdt('libxau-devel') }}      # [linux]
   host:
     - expat
     - freexl
@@ -134,10 +130,10 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - cmake  # [win]
       host:
         - python
-        - setuptools
-        - cmake  # [win]
+        - pip
         - numpy
         - {{ pin_subpackage('libgdal', exact=True) }}
         # openssl and hdf5 are dependencies from libgdal but are included here
