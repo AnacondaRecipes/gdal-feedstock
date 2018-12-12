@@ -121,7 +121,7 @@ outputs:
         - gdalinfo --formats
         - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
     about:
-      summary: 'The Geospatial Data Abstraction Library (GDAL).'
+      summary: 'The Geospatial Data Abstraction Library (GDAL)'
 
   - name: gdal
     script: install_python.sh   # [unix]
@@ -135,21 +135,15 @@ outputs:
         - setuptools
         - cmake  # [win]
         - numpy
-        # @msarahan, I needed to add this here ..
         - {{ pin_subpackage('libgdal', exact=True) }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
-        # .. and also here for it to show up in the run exports. Weird.
         - {{ pin_subpackage('libgdal', exact=True) }}
     test:
       files:
+        - test_data
         - extra_tests.py
-        - test_data/sites.dbf
-        - test_data/sites.sbn
-        - test_data/sites.sbx
-        - test_data/sites.shp
-        - test_data/sites.shx
       imports:
         - osr
         - gdal
@@ -165,9 +159,12 @@ outputs:
         summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
 about:
-  home: http://www.gdal.org/
+  home: http://www.gdal.org
   license: MIT
   license_file: LICENSE.TXT
+  summary: |
+    GDAL is a translator library for raster and vector geospatial data formats that is released under an
+    X/MIT style Open Source license by the Open Source Geospatial Foundation. 
 
 extra:
   recipe-maintainers:
