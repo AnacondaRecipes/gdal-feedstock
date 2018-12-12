@@ -28,10 +28,6 @@ requirements:
     - pkg-config >=0.21  # [not win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - pkg-config  # [not win]
-    # - {{ cdt('libxrender-devel') }}  # [linux]
-    # - {{ cdt('libxext-devel') }}     # [linux]
-    # - {{ cdt('libxau-devel') }}      # [linux]
   host:
     - cfitsio
     - curl
