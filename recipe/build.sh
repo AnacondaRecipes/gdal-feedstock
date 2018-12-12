@@ -2,6 +2,9 @@
 
 set -e # Abort on error.
 
+# Remove any .la files which cause linking problems
+rm -rf ${PREFIX}/lib/*.la
+
 # Force python bindings to not be built.
 unset PYTHON
 
