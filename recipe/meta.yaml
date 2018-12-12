@@ -157,6 +157,10 @@ outputs:
   - name: gdal
     script: install_python.sh   # [unix]
     script: install_python.bat  # [win]
+    build:
+      ignore_run_exports:
+        - openssl
+        - hdf5
     requirements:
       build:
         - {{ compiler('c') }}
@@ -167,6 +171,12 @@ outputs:
         - pip
         - numpy
         - {{ pin_subpackage('libgdal', exact=True) }}
+        # openssl and hdf5 are dependencies from libgdal but are included here
+        # as conda-build tried to use incompatible versions if they are not
+        # explicitiy listed.  Ignore the run exports using ignore_run_exports.
+        # see https://github.com/conda/conda-build/issues/3308
+        - openssl
+        - hdf5
       run:
         - python
         - {{ pin_compatible('numpy') }}
