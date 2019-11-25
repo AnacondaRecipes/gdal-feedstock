@@ -56,7 +56,7 @@ requirements:
     - openjpeg
     - openssl
     - pcre
-    - poppler
+    - poppler # [not win]
     - postgresql
     - proj
     - sqlite
@@ -110,7 +110,7 @@ outputs:
         - openjpeg
         - openssl
         - pcre
-        - poppler
+        - poppler # [not win]
         - postgresql
         - proj
         - sqlite
@@ -118,6 +118,7 @@ outputs:
         - xerces-c
         - xz  # [not win or vc>=14]
         - zlib
+        - zstd
       run:
         - cfitsio
         - geotiff
@@ -128,7 +129,7 @@ outputs:
         - libspatialite
         - libuuid  # [linux]
         - m2w64-xz  # [win]
-        - poppler
+        - poppler # [not win]
         - postgresql
         - proj
         - tiledb
@@ -195,7 +196,7 @@ outputs:
         - osgeo._ogr
         - osgeo._osr
       commands:
-        - python {{ RECIPE_DIR }}/run_test.py
+        - ${PYTHON} {{ RECIPE_DIR }}/run_test.py
       about:
         summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
