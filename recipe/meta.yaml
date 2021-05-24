@@ -16,10 +16,11 @@ source:
     - patches/disable_jpeg12.patch  # [win]
     # Backport https://github.com/OSGeo/gdal/pull/1722
     # Can be dropped in the next release.
-    - patches/backport_1722.patch
+    # This is already applied in release 3.0.2..
+    # - patches/backport_1722.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win and vc<14]
 
 requirements:
@@ -28,6 +29,7 @@ requirements:
     - pkg-config >=0.21  # [not win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - make  # [unix]
   host:
     - cfitsio
     - curl
@@ -80,6 +82,7 @@ outputs:
         # libstdc++ is needed in requirements/run
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
+        - make  # [unix]
       host:
         - cfitsio
         - curl
@@ -165,6 +168,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - cmake  # [win]
+        - make  # [unix]
       host:
         - python
         - pip
