@@ -74,6 +74,20 @@ outputs:
       run_exports:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
+      ignore_run_exports:
+        - postgresql
+        # TODO: figure out why these are being statically linked, and/or why
+        # `conda-build` mis-detects them as over-depending. On OS X, at least,
+        # build logs show them being passed via the linker `-l` option.
+        - icu       # [osx or win]
+        - libkml    # [win]
+        - libxml2   # [win]
+        - openssl   # [win]
+        - pcre      # [win]
+        - xz        # [osx or win]
+        - zlib      # [osx or win]
+        - zstd      # [osx or win]
+
     requirements:
       build:
         # ranlib used at install time
