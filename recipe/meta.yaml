@@ -10,8 +10,8 @@ source:
   patches:
     # BUILT_AS_DYNAMIC_LIB.
     - patches/windowshdf5.patch  # [win]
-    # Use multiple cores on Windows.
-    - patches/multiprocessor.patch  # [win]
+    # Use multiple cores on Windows.  (Now enabled by upstream)
+    #- patches/multiprocessor.patch  # [win]
     # disable 12 bit jpeg on Windows as we aren't using internal jpeg
     - patches/disable_jpeg12.patch  # [win]
 
@@ -21,6 +21,7 @@ build:
 
 requirements:
   build:
+    - m2-patch  # [win]
     - cmake  # [win]
     - pkg-config >=0.21  # [not win]
     - make  # [unix]
