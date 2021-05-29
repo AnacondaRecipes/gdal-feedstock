@@ -1,4 +1,6 @@
 echo on
+set LIBRARY_INC=%PREFIX%\Library\include
+set LIBRARY_LIB=%PREFIX%\Library\lib
 
 call "%RECIPE_DIR%\set_bld_opts.bat"
 

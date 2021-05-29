@@ -2,6 +2,9 @@
 
 set -e # Abort on error.
 
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* .
+
 # recommended in https://gitter.im/conda-forge/conda-forge.github.io?at=5c40da7f95e17b45256960ce
 find ${PREFIX}/lib -name '*.la' -delete
 
@@ -55,9 +58,12 @@ bash configure --prefix=${PREFIX} \
                --with-spatialite=${PREFIX} \
                --with-sqlite3=${PREFIX} \
                --with-proj=${PREFIX} \
+               --with-webp=${PREFIX} \
                --with-xerces=${PREFIX} \
-               --with-xml2=${PREFIX} \
+               --with-xml2=yes \
+               --with-zstd=${PREFIX} \
                --without-python \
+               --disable-static \
                --verbose \
                ${OPTS}
 

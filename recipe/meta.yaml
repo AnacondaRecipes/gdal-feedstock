@@ -1,4 +1,4 @@
-{% set version = "3.0.2" %}
+{% set version = "3.2.2" %}
 
 package:
   name: gdal-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
-  sha256: c3765371ce391715c8f28bd6defbc70b57aa43341f6e94605f04fe3c92468983
+  sha256: a7e1e414e5c405af48982bf4724a3da64a05770254f2ce8affb5f58a7604ca57
   patches:
     # BUILT_AS_DYNAMIC_LIB.
     - patches/windowshdf5.patch  # [win]
@@ -14,9 +14,6 @@ source:
     - patches/multiprocessor.patch  # [win]
     # disable 12 bit jpeg on Windows as we aren't using internal jpeg
     - patches/disable_jpeg12.patch  # [win]
-    # Backport https://github.com/OSGeo/gdal/pull/1722
-    # Can be dropped in the next release.
-    - patches/backport_1722.patch
 
 build:
   number: 0
@@ -26,6 +23,8 @@ requirements:
   build:
     - cmake  # [win]
     - pkg-config >=0.21  # [not win]
+    - make  # [unix]
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -51,8 +50,8 @@ requirements:
     - libspatialite
     - libtiff
     - libuuid  # [linux]
+    - libwebp-base
     - libxml2
-    - m2w64-xz  # [win]
     - openjpeg
     - openssl
     - pcre
@@ -62,8 +61,9 @@ requirements:
     - sqlite
     - tiledb
     - xerces-c
-    - xz  # [not win or vc>=14]
+    - xz
     - zlib
+    - zstd
 
 outputs:
   - name: libgdal
@@ -80,6 +80,7 @@ outputs:
         # libstdc++ is needed in requirements/run
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
+        - make  # [unix]
       host:
         - cfitsio
         - curl
@@ -105,8 +106,8 @@ outputs:
         - libspatialite
         - libtiff
         - libuuid  # [linux]
+        - libwebp-base
         - libxml2
-        - m2w64-xz  # [win]
         - openjpeg
         - openssl
         - pcre
@@ -116,7 +117,7 @@ outputs:
         - sqlite
         - tiledb
         - xerces-c
-        - xz  # [not win or vc>=14]
+        - xz
         - zlib
         - zstd
       run:
@@ -128,28 +129,19 @@ outputs:
         - libpq
         - libspatialite
         - libuuid  # [linux]
-        - m2w64-xz  # [win]
+        - libwebp-base
         - poppler # [not win]
         - postgresql
         - proj
         - tiledb
-        - xz  # [not win or vc>=14]
-        - m2w64-xz  # [win]
+        - xz
         - zlib
+        - zstd
     test:
       files:
         - test_data
-      commands:
-        - gdal_grid --version
-        - gdal_rasterize --version
-        - gdal_translate --version
-        - gdaladdo --version
-        - gdalenhance --version
-        - gdalwarp --version
-        - gdalinfo --formats
-        - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
-        - {{ RECIPE_DIR }}/run_test.bat  # [win]
-        - bash {{ RECIPE_DIR }}/run_test.sh  # [not win]
+        - run_test.bat
+        - run_test.sh
     about:
       summary: 'The Geospatial Data Abstraction Library (GDAL)'
 
@@ -184,10 +176,8 @@ outputs:
       files:
         - test_data
         - extra_tests.py
+        - run_test.py
       imports:
-        - osr
-        - gdal
-        - gdalconst
         - osgeo
         - osgeo.ogr
         - osgeo.gdal
@@ -196,7 +186,7 @@ outputs:
         - osgeo._ogr
         - osgeo._osr
       commands:
-        - ${PYTHON} {{ RECIPE_DIR }}/run_test.py
+        - python run_test.py
       about:
         summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
@@ -215,3 +205,4 @@ extra:
     - mingwandroid
     - msarahan
     - ocefpaf
+    - xylar
