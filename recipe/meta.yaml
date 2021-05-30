@@ -113,7 +113,11 @@ outputs:
         - kealib
         - libcurl
         - libdap4  # [not win]
-        - libiconv  # [osx]
+        # libiconv is a libxml2 run depends.  It gets picked up by the GDAL
+        # configure/build system and gets dynamically linked to `libgal`; so we
+        # might as well add `libiconv` as a `host` so conda build doesn't
+        # complain about a missing run depends when it runs its checks.
+        - libiconv  # [osx or win]
         - libkml
         - libnetcdf
         - libpng
