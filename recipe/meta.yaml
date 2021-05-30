@@ -16,16 +16,18 @@ source:
     - patches/disable_jpeg12.patch  # [win]
     # Backport https://github.com/OSGeo/gdal/pull/1722
     # Can be dropped in the next release.
-    - patches/backport_1722.patch
+    # This is already applied in release 3.0.2..
+    # - patches/backport_1722.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win and vc<14]
 
 requirements:
   build:
     - cmake  # [win]
     - pkg-config >=0.21  # [not win]
+    - make  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -73,6 +75,20 @@ outputs:
       run_exports:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
+      ignore_run_exports:
+        - postgresql
+        # TODO: figure out why these are being statically linked, and/or why
+        # `conda-build` mis-detects them as over-depending. On OS X, at least,
+        # build logs show them being passed via the linker `-l` option.
+        - icu       # [osx or win]
+        - libkml    # [win]
+        - libxml2   # [win]
+        - openssl   # [win]
+        - pcre      # [win]
+        - xz        # [osx or win]
+        - zlib      # [osx or win]
+        - zstd      # [osx or win]
+
     requirements:
       build:
         # ranlib used at install time
@@ -80,6 +96,7 @@ outputs:
         # libstdc++ is needed in requirements/run
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
+        - make  # [unix]
       host:
         - cfitsio
         - curl
@@ -97,7 +114,11 @@ outputs:
         - kealib
         - libcurl
         - libdap4  # [not win]
-        - libiconv  # [osx]
+        # libiconv is a libxml2 run depends.  It gets picked up by the GDAL
+        # configure/build system and gets dynamically linked to `libgal`; so we
+        # might as well add `libiconv` as a `host` so conda build doesn't
+        # complain about a missing run depends when it runs its checks.
+        - libiconv  # [osx or win]
         - libkml
         - libnetcdf
         - libpng
@@ -147,7 +168,8 @@ outputs:
         - gdalenhance --version
         - gdalwarp --version
         - gdalinfo --formats
-        - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
+        # Avoid tests that require network connections
+        #- gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
         - {{ RECIPE_DIR }}/run_test.bat  # [win]
         - bash {{ RECIPE_DIR }}/run_test.sh  # [not win]
     about:
@@ -165,6 +187,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - cmake  # [win]
+        - make  # [unix]
       host:
         - python
         - pip
@@ -196,7 +219,7 @@ outputs:
         - osgeo._ogr
         - osgeo._osr
       commands:
-        - ${PYTHON} {{ RECIPE_DIR }}/run_test.py
+        - python {{ RECIPE_DIR }}/run_test.py
       about:
         summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
