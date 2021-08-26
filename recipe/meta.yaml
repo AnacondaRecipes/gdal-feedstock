@@ -26,6 +26,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - make  # [not win]
+    - libtool  # [not win]
   host:
     - cfitsio
     - curl
