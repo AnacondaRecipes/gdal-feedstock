@@ -58,7 +58,7 @@ bash configure --prefix=${PREFIX} \
                --with-sqlite3=${PREFIX} \
                --with-proj=${PREFIX} \
                --with-xerces=${PREFIX} \
-               --with-xml2=${PREFIX} \
+               --with-xml2=yes \
                --without-python \
                --verbose \
                ${OPTS}
