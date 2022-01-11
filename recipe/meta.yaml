@@ -17,7 +17,8 @@ source:
 
 build:
   number: 0
-  skip: True  # [win and vc<14]
+  # package is not supported on linux-s390x - many dependencies missing
+  skip: True   [(win and vc<14) or s390x]
 
 requirements:
   build:
