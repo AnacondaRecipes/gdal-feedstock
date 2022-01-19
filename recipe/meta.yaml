@@ -17,7 +17,7 @@ source:
 
 build:
   number: 1
-  skip: True  # [win and vc<14]
+  skip: True  # [win and vc<14 or s390x]
 
 requirements:
   build:
@@ -134,10 +134,10 @@ outputs:
         - libpq
         - libspatialite
         - libuuid  # [linux]
-        - libwebp-base  # [linux]
+        - libwebp-base  # [linux or osx]
         - m2w64-xz  # [win]
         - poppler # [not win]
-        - postgresql
+        - postgresql  # [not (osx and arm64)]
         - proj
         - tiledb
         - xz  # [not win or vc>=14]
