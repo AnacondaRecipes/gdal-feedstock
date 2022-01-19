@@ -78,7 +78,6 @@ outputs:
         - zstd  # [osx]
         - xz  # [osx]
         - zlib  # [osx]
-        - libwebp-base  # [aarch64]
     requirements:
       build:
         # ranlib used at install time
@@ -135,6 +134,7 @@ outputs:
         - libpq
         - libspatialite
         - libuuid  # [linux]
+        - libwebp-base  # [linux]
         - m2w64-xz  # [win]
         - poppler # [not win]
         - postgresql
