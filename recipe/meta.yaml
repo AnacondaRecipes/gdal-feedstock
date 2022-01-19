@@ -78,6 +78,7 @@ outputs:
         - zstd  # [osx]
         - xz  # [osx]
         - zlib  # [osx]
+        - libwebp-base  # [aarch64]
     requirements:
       build:
         # ranlib used at install time
