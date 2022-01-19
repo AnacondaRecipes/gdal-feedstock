@@ -73,7 +73,11 @@ outputs:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
       ignore_run_exports:
-        - postgresql
+        - postgresql  # [linux]
+        - icu  # [osx]
+        - zstd  # [osx]
+        - xz  # [osx]
+        - zlib  # [osx]
     requirements:
       build:
         # ranlib used at install time
