@@ -72,6 +72,8 @@ outputs:
       run_exports:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
+      ignore_run_exports:
+        - postgresql
     requirements:
       build:
         # ranlib used at install time
