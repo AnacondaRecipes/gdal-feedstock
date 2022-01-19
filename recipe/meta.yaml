@@ -170,6 +170,7 @@ outputs:
         - make   # [not win]
       host:
         - python
+        - setuptools <58.0.0
         - pip
         - numpy
         - {{ pin_subpackage('libgdal', exact=True) }}
