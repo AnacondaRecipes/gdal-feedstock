@@ -154,7 +154,8 @@ outputs:
         - gdalenhance --version
         - gdalwarp --version
         - gdalinfo --formats
-        - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
+        # Server is unreachable.
+        # - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
         - {{ RECIPE_DIR }}/run_test.bat  # [win]
         - bash {{ RECIPE_DIR }}/run_test.sh  # [not win]
     about:
