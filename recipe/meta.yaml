@@ -73,7 +73,6 @@ outputs:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
       ignore_run_exports:
-        - postgresql  # [linux]
         - icu  # [osx]
         - zstd  # [osx]
         - xz  # [osx]
@@ -117,7 +116,6 @@ outputs:
         - openssl
         - pcre
         - poppler # [not win]
-        - postgresql
         - proj
         - sqlite
         - tiledb
@@ -137,7 +135,6 @@ outputs:
         - libwebp-base  # [linux or osx]
         - m2w64-xz  # [win]
         - poppler # [not win]
-        - postgresql  # [not (osx and arm64)]
         - proj
         - tiledb
         - xz  # [not win or vc>=14]
