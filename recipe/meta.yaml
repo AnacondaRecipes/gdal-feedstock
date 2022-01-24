@@ -130,6 +130,7 @@ outputs:
         - giflib  # [not win]
         - json-c  # [not win]
         - libdap4  # [not win]
+        - libiconv  # [win]
         - libpq
         - libspatialite
         - libuuid  # [linux]
