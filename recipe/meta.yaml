@@ -74,10 +74,14 @@ outputs:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
       ignore_run_exports:
-        - icu  # [osx]
-        - zstd  # [osx]
-        - xz  # [osx]
-        - zlib  # [osx]
+        - icu  # [osx or win]
+        - libkml  # [win]
+        - libxml2  # [win]
+        - openssl  # [win]
+        - pcre  # [win]
+        - zstd  # [osx or win]
+        - xz  # [osx or win]
+        - zlib  # [osx or win]
     requirements:
       build:
         # ranlib used at install time
@@ -193,6 +197,7 @@ outputs:
       files:
         - test_data
         - extra_tests.py
+        - run_test.py
       imports:
         - osr
         - gdal
@@ -205,7 +210,7 @@ outputs:
         - osgeo._ogr
         - osgeo._osr
       commands:
-        - ${PYTHON} {{ RECIPE_DIR }}/run_test.py
+        - python run_test.py
       about:
         summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
