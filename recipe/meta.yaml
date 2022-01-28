@@ -56,7 +56,7 @@ requirements:
     - openjpeg
     - openssl
     - pcre
-    - poppler # [not win]
+    - poppler <=0.81  # [not win]
     - postgresql
     - proj
     - sqlite
@@ -120,7 +120,7 @@ outputs:
         - openjpeg
         - openssl
         - pcre
-        - poppler # [not win]
+        - poppler <=0.81  # [not win]
         - proj
         - sqlite
         - tiledb
