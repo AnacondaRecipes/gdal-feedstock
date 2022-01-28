@@ -1,8 +1,7 @@
-diff --git a/nmake.opt b/nmake.opt
-index e68f65a..8594b2d 100644
---- a/nmake.opt
-+++ b/nmake.opt
-@@ -276,9 +276,9 @@ JPEG_SUPPORTED = 1
+diff -urN a/nmake.opt b/nmake.opt
+--- a/nmake.opt	2019-10-28 12:56:15.000000000 +0300
++++ b/nmake.opt	2022-01-24 12:54:48.414017600 +0300
+@@ -280,9 +280,9 @@
  !ENDIF
  
  # This will enable 12bit libjpeg - use only with internal jpeg builds.
