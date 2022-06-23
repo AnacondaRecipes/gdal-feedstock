@@ -1,0 +1,11 @@
+diff -urN a/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp b/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp
+--- a/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp	2019-10-28 12:58:37.000000000 +0300
++++ b/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp	2022-06-23 16:36:05.324483080 +0300
+@@ -38,6 +38,7 @@
+ #include <iostream>
+ #include <memory>
+ #include <string>
++#include <limits>
+ 
+ #if ((defined(__sun__) || defined(__FreeBSD__)) && __GNUC__ == 4 && __GNUC_MINOR__ == 8) || defined(__ANDROID__)
+ // gcc 4.8 on Solaris 11.3 or FreeBSD 11 doesn't have std::string
