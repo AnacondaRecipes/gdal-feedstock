@@ -15,7 +15,7 @@ source:
     # disable 12 bit jpeg on Windows as we aren't using internal jpeg
     - patches/disable_jpeg12.patch  # [win]
     # Fix missing include
-    - patches/include-limits-missing.patch
+    - patches/include-limits-missing.patch  # [linux]
 
 build:
   number: 3
@@ -30,6 +30,7 @@ requirements:
     - make  # [not win]
     - libtool  # [not win]
     - m2-patch  # [win]
+    - patch  # [linux]
   host:
     - cfitsio
     - curl
