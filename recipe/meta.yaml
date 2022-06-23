@@ -14,6 +14,8 @@ source:
     - patches/multiprocessor.patch  # [win]
     # disable 12 bit jpeg on Windows as we aren't using internal jpeg
     - patches/disable_jpeg12.patch  # [win]
+    # Fix missing include
+    - patches/include-limits-missing.patch
 
 build:
   number: 3
