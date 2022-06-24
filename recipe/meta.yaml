@@ -19,7 +19,7 @@ source:
 
 build:
   number: 3
-  skip: True  # [win and vc<14 or s390x]
+  skip: True  # [win and vc<14 or s390x or py>39]
 
 requirements:
   build:
