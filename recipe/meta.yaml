@@ -175,7 +175,8 @@ outputs:
       ignore_run_exports:
         - openssl
         - hdf5
-      skip: True  # [py>39]
+      # Doesn't build with Python 3.10 on Windows, has never been built before.
+      skip: True  # [py>39 and win]
     requirements:
       build:
         - {{ compiler('c') }}
