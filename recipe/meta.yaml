@@ -148,6 +148,7 @@ outputs:
         - tiledb
         - xz  # [not win or vc>=14]
         - m2w64-xz  # [win]
+        - vs2015_runtime  # [win]
         - zlib
     test:
       files:
@@ -174,6 +175,7 @@ outputs:
       ignore_run_exports:
         - openssl
         - hdf5
+      skip: True  # [py>39]
     requirements:
       build:
         - {{ compiler('c') }}
