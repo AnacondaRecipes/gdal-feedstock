@@ -19,7 +19,8 @@ source:
 
 build:
   number: 3
-  skip: True  # [win and vc<14 or s390x or py>39]
+  # Has never been built for s390x
+  skip: True  # [s390x]
 
 requirements:
   build:
