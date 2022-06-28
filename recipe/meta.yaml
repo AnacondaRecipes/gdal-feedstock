@@ -133,8 +133,10 @@ outputs:
         - zstd
       run:
         - cfitsio
+        - expat  # [win]
         - geotiff
         - giflib  # [not win]
+        - hdf5  # [win]
         - json-c  # [not win]
         - libdap4  # [not win]
         - libiconv  # [win]
@@ -146,9 +148,9 @@ outputs:
         - poppler # [not win]
         - proj
         - tiledb
-        - xz  # [not win or vc>=14]
-        - m2w64-xz  # [win]
         - vs2015_runtime  # [win]
+        - xerces-c  # [win]
+        - xz  # [not win or vc>=14]
         - zlib
     test:
       files:
