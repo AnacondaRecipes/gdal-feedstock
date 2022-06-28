@@ -228,7 +228,7 @@ about:
   summary: |
     GDAL is a translator library for raster and vector geospatial data formats that is released under an
     X/MIT style Open Source license by the Open Source Geospatial Foundation.
-  dev_url: https://gdal.org/api/index.html
+  dev_url: https://github.com/OSGeo/gdal
   doc_url: https://gdal.org/tutorials/index.html
 
 extra:
