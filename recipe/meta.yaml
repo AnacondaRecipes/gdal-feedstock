@@ -107,8 +107,8 @@ outputs:
         - icu
         - jpeg
         - json-c  # [not win]
-        - icu
         - kealib
+        - krb5  # [win]
         - libcurl
         - libdap4  # [not win]
         - libiconv  # [osx]
@@ -139,6 +139,7 @@ outputs:
         - giflib  # [not win]
         - hdf5  # [win]
         - json-c  # [not win]
+        - krb5  # [win]
         - libdap4  # [not win]
         - libiconv  # [win]
         - libpq
