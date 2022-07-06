@@ -21,6 +21,8 @@ build:
   number: 3
   # Has never been built for s390x
   skip: True  # [s390x]
+  ignore_run_exports:
+    - krb5  # [win]
 
 requirements:
   build:
