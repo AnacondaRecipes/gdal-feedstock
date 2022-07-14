@@ -14,10 +14,15 @@ source:
     - patches/multiprocessor.patch  # [win]
     # disable 12 bit jpeg on Windows as we aren't using internal jpeg
     - patches/disable_jpeg12.patch  # [win]
+    # Fix missing include
+    - patches/include-limits-missing.patch  # [linux]
 
 build:
-  number: 2
-  skip: True  # [win and vc<14 or s390x]
+  number: 3
+  # Has never been built for s390x
+  skip: True  # [s390x]
+  ignore_run_exports:
+    - krb5  # [win]
 
 requirements:
   build:
@@ -28,6 +33,7 @@ requirements:
     - make  # [not win]
     - libtool  # [not win]
     - m2-patch  # [win]
+    - patch  # [linux]
   host:
     - cfitsio
     - curl
@@ -103,8 +109,8 @@ outputs:
         - icu
         - jpeg
         - json-c  # [not win]
-        - icu
         - kealib
+        - krb5  # [win]
         - libcurl
         - libdap4  # [not win]
         - libiconv  # [osx]
@@ -130,9 +136,12 @@ outputs:
         - zstd
       run:
         - cfitsio
+        - expat  # [win]
         - geotiff
         - giflib  # [not win]
+        - hdf5  # [win]
         - json-c  # [not win]
+        - krb5  # [win]
         - libdap4  # [not win]
         - libiconv  # [win]
         - libpq
@@ -143,8 +152,9 @@ outputs:
         - poppler # [not win]
         - proj
         - tiledb
+        - vs2015_runtime  # [win]
+        - xerces-c  # [win]
         - xz  # [not win or vc>=14]
-        - m2w64-xz  # [win]
         - zlib
     test:
       files:
@@ -171,6 +181,8 @@ outputs:
       ignore_run_exports:
         - openssl
         - hdf5
+      # Doesn't build with Python 3.10 on Windows, has never been built before.
+      skip: True  # [py>39 and win]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -215,12 +227,15 @@ outputs:
         summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
 
 about:
-  home: http://www.gdal.org
+  home: https://www.gdal.org
   license: MIT
+  license_family: MIT
   license_file: LICENSE.TXT
   summary: |
     GDAL is a translator library for raster and vector geospatial data formats that is released under an
     X/MIT style Open Source license by the Open Source Geospatial Foundation.
+  dev_url: https://github.com/OSGeo/gdal
+  doc_url: https://gdal.org/tutorials/index.html
 
 extra:
   recipe-maintainers:
