@@ -18,7 +18,7 @@ source:
     - patches/include-limits-missing.patch  # [linux]
 
 build:
-  number: 3
+  number: 4
   # Has never been built for s390x
   skip: True  # [s390x]
   ignore_run_exports:
@@ -57,7 +57,8 @@ requirements:
     - libspatialite
     - libtiff
     - libuuid  # [linux]
-    - libxml2
+    # exclusions due to https://bugs.launchpad.net/lxml/+bug/1928795
+    - libxml2 !=2.9.11, !=2.9.12
     - m2w64-xz  # [win]
     - openjpeg
     - openssl
@@ -88,6 +89,7 @@ outputs:
         - zstd  # [osx or win]
         - xz  # [osx or win]
         - zlib  # [osx or win]
+        - krb5  # [win]
     requirements:
       build:
         # ranlib used at install time
@@ -121,7 +123,8 @@ outputs:
         - libspatialite
         - libtiff
         - libuuid  # [linux]
-        - libxml2
+        # exclusions due to https://bugs.launchpad.net/lxml/+bug/1928795
+        - libxml2 !=2.9.11, !=2.9.12
         - m2w64-xz  # [win]
         - openjpeg
         - openssl
@@ -172,7 +175,16 @@ outputs:
         - {{ RECIPE_DIR }}/run_test.bat  # [win]
         - bash {{ RECIPE_DIR }}/run_test.sh  # [not win]
     about:
-      summary: 'The Geospatial Data Abstraction Library (GDAL)'
+      home: https://www.gdal.org
+      license: MIT
+      license_family: MIT
+      license_file: LICENSE.TXT
+      summary: The Geospatial Data Abstraction Library (GDAL)
+      description: |
+        GDAL is a translator library for raster and vector geospatial data formats that is released under an
+        X/MIT style Open Source license by the Open Source Geospatial Foundation.
+      dev_url: https://github.com/OSGeo/gdal
+      doc_url: https://gdal.org/tutorials/index.html
 
   - name: gdal
     script: install_python.sh   # [unix]
@@ -223,15 +235,25 @@ outputs:
         - osgeo._osr
       commands:
         - python run_test.py
-      about:
-        summary: 'Python wrapper for the Geospatial Data Abstraction Library (GDAL)'
+    about:
+      home: https://www.gdal.org
+      license: MIT
+      license_family: MIT
+      license_file: LICENSE.TXT
+      summary: Python wrapper for the Geospatial Data Abstraction Library (GDAL)
+      description: |
+        GDAL is a translator library for raster and vector geospatial data formats that is released under an
+        X/MIT style Open Source license by the Open Source Geospatial Foundation.
+      dev_url: https://github.com/OSGeo/gdal
+      doc_url: https://gdal.org/tutorials/index.html
 
 about:
   home: https://www.gdal.org
   license: MIT
   license_family: MIT
   license_file: LICENSE.TXT
-  summary: |
+  summary: The Geospatial Data Abstraction Library (GDAL)
+  description: |
     GDAL is a translator library for raster and vector geospatial data formats that is released under an
     X/MIT style Open Source license by the Open Source Geospatial Foundation.
   dev_url: https://github.com/OSGeo/gdal
