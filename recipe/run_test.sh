@@ -40,3 +40,17 @@ echo ""
 ogrinfo sample.kmz
 
 popd
+
+gdal_grid --version
+gdal_rasterize --version
+gdal_translate --version
+gdaladdo --version
+gdalenhance --version
+gdalwarp --version
+gdalinfo --formats
+
+test -f ${PREFIX}/lib/libgdal${SHLIB_EXT}
+test ! -f ${PREFIX}/lib/libgdal.a
+
+# check all drivers
+gdal_translate --formats

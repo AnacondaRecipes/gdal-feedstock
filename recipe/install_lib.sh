@@ -1,9 +1,13 @@
-make install
+# re-use prior created build directory
+cd build
+
+cmake --build . --target install
 
 # Make sure GDAL_DATA and set and still present in the package.
 # https://github.com/conda/conda-recipes/pull/267
 ACTIVATE_DIR=${PREFIX}/etc/conda/activate.d
 DEACTIVATE_DIR=${PREFIX}/etc/conda/deactivate.d
+
 mkdir -p ${ACTIVATE_DIR}
 mkdir -p ${DEACTIVATE_DIR}
 
