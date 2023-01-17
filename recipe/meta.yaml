@@ -18,7 +18,7 @@ source:
     - patches/include-limits-missing.patch  # [linux]
 
 build:
-  number: 5
+  number: 6
   # Has never been built for s390x
   skip: True  # [s390x]
   ignore_run_exports:
@@ -193,8 +193,6 @@ outputs:
       ignore_run_exports:
         - openssl
         - hdf5
-      # Doesn't build with Python 3.10 on Windows, has never been built before.
-      skip: True  # [py>39 and win]
     requirements:
       build:
         - {{ compiler('c') }}
