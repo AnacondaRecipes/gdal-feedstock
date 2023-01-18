@@ -26,6 +26,7 @@ cmake -G "Unix Makefiles" \
       -DBUILD_PYTHON_BINDINGS:BOOL=OFF \
       -DBUILD_JAVA_BINDINGS:BOOL=OFF \
       -DBUILD_CSHARP_BINDINGS:BOOL=OFF \
+      -DGDAL_USE_EXTERNAL_LIBS=OFF \
       ${SRC_DIR}
 
 cmake --build . -j ${CPU_COUNT} --config Release

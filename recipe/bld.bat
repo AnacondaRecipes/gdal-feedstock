@@ -33,6 +33,7 @@ cmake -G "Ninja" ^
       -DGDAL_USE_PARQUET=OFF ^
       -DGDAL_USE_ARROW=OFF ^
       -DGDAL_USE_ARROWDATASET=OFF ^
+      -DGDAL_USE_EXTERNAL_LIBS=OFF ^
       "%SRC_DIR%"
 
 if errorlevel 1 exit /b 1
