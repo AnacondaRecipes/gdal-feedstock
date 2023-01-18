@@ -13,6 +13,8 @@ source:
 
 build:
   number: 14
+  # never be built on s390x
+  skip: True  # [linux and s390x]
   skip_compile_pyc:
     - "share/bash-completion/completions/*.py"
   ignore_run_exports:
