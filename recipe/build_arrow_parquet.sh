@@ -2,7 +2,6 @@
 
 set -ex # Abort on error.
 
-# re-use prior created build directory
 cd build
 
 # We reuse the same build directory as libgdal, so we just to have to
@@ -11,7 +10,6 @@ cmake -DBUILD_PYTHON_BINDINGS:BOOL=OFF \
       -DGDAL_USE_PARQUET=ON \
       -DGDAL_USE_ARROW=ON \
       -DGDAL_USE_ARROWDATASET=ON \
-      -DGDAL_USE_OPENCL=OFF \
       -DOGR_ENABLE_DRIVER_ARROW=ON \
       -DOGR_ENABLE_DRIVER_ARROW_PLUGIN=ON \
       -DOGR_ENABLE_DRIVER_PARQUET=ON \

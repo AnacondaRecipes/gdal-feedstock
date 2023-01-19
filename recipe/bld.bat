@@ -1,6 +1,5 @@
 mkdir build
 if errorlevel 1 exit 1
-
 cd build
 if errorlevel 1 exit 1
 
@@ -25,7 +24,6 @@ cmake -G "Ninja" ^
       -DBUILD_JAVA_BINDINGS:BOOL=OFF ^
       -DBUILD_CSHARP_BINDINGS:BOOL=OFF ^
       -DGDAL_USE_KEA:BOOL=ON ^
-      -DGDAL_USE_OPENCL:BOOL=OFF ^
       -DKEA_INCLUDE_DIR:PATH="%LIBRARY_INC%" ^
       -DKEA_LIBRARY:PATH="%LIBRARY_LIB%\libkea.lib" ^
       -DGDAL_USE_MYSQL:BOOL=OFF ^
@@ -33,7 +31,6 @@ cmake -G "Ninja" ^
       -DGDAL_USE_PARQUET=OFF ^
       -DGDAL_USE_ARROW=OFF ^
       -DGDAL_USE_ARROWDATASET=OFF ^
-      -DGDAL_USE_EXTERNAL_LIBS=OFF ^
       "%SRC_DIR%"
 
 if errorlevel 1 exit /b 1

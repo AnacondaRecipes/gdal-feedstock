@@ -144,13 +144,18 @@ outputs:
         - geotiff
         - giflib   # [not win]
         - json-c   # [not win]
+        - libiconv
+        - libkml
         - libpq
         - libspatialite
         - libuuid  # [linux]
         - libwebp-base
+        - libxml2
+        - openjpeg
         - poppler
         - postgresql
         - proj
+        - qhull
         - tiledb
         - xz
         - zstd
@@ -262,9 +267,9 @@ outputs:
     script: install_python.sh  # [unix]
     script: install_python.bat  # [win]
     build:
-      ignore_run_exports:
-        - openssl
-        - hdf5
+      skip_compile_pyc:
+        - share/bash-completion/completions/*.py
+
     requirements:
       build:
         - {{ compiler('c') }}

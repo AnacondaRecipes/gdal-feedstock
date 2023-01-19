@@ -21,12 +21,10 @@ cmake -G "Unix Makefiles" \
       -DBUILD_SHARED_LIBS=ON \
       -DGDAL_USE_PARQUET=OFF \
       -DGDAL_USE_ARROW=OFF \
-      -DGDAL_USE_OPENCL=OFF \
       -DGDAL_USE_ARROWDATASET=OFF \
       -DBUILD_PYTHON_BINDINGS:BOOL=OFF \
       -DBUILD_JAVA_BINDINGS:BOOL=OFF \
       -DBUILD_CSHARP_BINDINGS:BOOL=OFF \
-      -DGDAL_USE_EXTERNAL_LIBS=OFF \
       ${SRC_DIR}
 
 cmake --build . -j ${CPU_COUNT} --config Release

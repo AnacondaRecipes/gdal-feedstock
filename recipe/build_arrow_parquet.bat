@@ -1,15 +1,12 @@
-REM re-use prior created build directory
 cd build
 if errorlevel 1 exit 1
 
 REM We reuse the same build directory as libgdal, so we just to have to
 REM turn on the required dependency and drivers
-
 cmake -DBUILD_PYTHON_BINDINGS:BOOL=OFF ^
       -DGDAL_USE_PARQUET=ON ^
       -DGDAL_USE_ARROW=ON ^
       -DGDAL_USE_ARROWDATASET=ON ^
-      -DGDAL_USE_OPENCL:BOOL=OFF ^
       -DOGR_ENABLE_DRIVER_ARROW=ON ^
       -DOGR_ENABLE_DRIVER_ARROW_PLUGIN=ON ^
       -DOGR_ENABLE_DRIVER_PARQUET=ON ^
