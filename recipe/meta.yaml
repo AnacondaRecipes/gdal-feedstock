@@ -290,7 +290,17 @@ outputs:
         # Workaround to prevent conflicts seen in
         #  https://github.com/conda-forge/gdal-feedstock/pull/543
         - openssl
-
+        - openjpeg
+        - libiconv
+        - libxml2
+        - blosc
+        - cfitsio
+        - expat
+        - freexl
+        - geos
+        - geotiff
+        - giflib   # [not win]
+        - hdf4
       run:
         - python
         - {{ pin_compatible('numpy') }}
