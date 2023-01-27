@@ -10,6 +10,8 @@ export CXXFLAGS="${CXXFLAGS} -std=c++17 -D_LIBCPP_DISABLE_AVAILABILITY"
 mkdir build
 cd build
 
+echo "CMAKE_ARGS: ${CMAKE_ARGS} ..."
+
 # Make sure to disable Arrow/Parquet dependencies for now, so they are only
 # used in build_arrow_parquet
 cmake -G "Unix Makefiles" \
