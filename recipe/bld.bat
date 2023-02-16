@@ -12,6 +12,9 @@ if  %vc% GTR 9 set MSVC_TS_VER=140
 REM Make sure to disable Arrow/Parquet dependencies for now, so they are only
 REM used in build_arrow_parquet
 
+set CFLAGS="%CFLAGS% /DH5_BUILT_AS_DYNAMIC_LIB"
+set CXXFLAGS="%CXXFLAGS /DH5_BUILT_AS_DYNAMIC_LIB"
+
 cmake -G "Ninja" ^
       "%CMAKE_ARGS%" ^
       -DMSVC_VERSION="%MSVC_VER%" ^
