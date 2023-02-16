@@ -193,7 +193,7 @@ outputs:
         - sysroot_linux-64 2.17  # [linux and x86_64]
 
       host:
-        - {{ pin_subpackage('libgdal', exact=True) }}
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
         - blosc
         - cfitsio
         - curl
@@ -233,7 +233,7 @@ outputs:
         - zstd
 
       run:
-        - {{ pin_subpackage('libgdal', exact=True) }}
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
         - cfitsio
         - geotiff
         - giflib   # [not win]
@@ -282,7 +282,7 @@ outputs:
         - python
         - pip
         - numpy
-        - {{ pin_subpackage('libgdal', exact=True) }}
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
         # Workaround to prevent run depending on "libgfortran5 9.3.0" despite "hdf5"
         # having not been migrated yet causing conflicts with the "libgdal" output
         # See: https://github.com/conda-forge/gdal-feedstock/pull/415
@@ -304,7 +304,7 @@ outputs:
       run:
         - python
         - {{ pin_compatible('numpy') }}
-        - {{ pin_subpackage('libgdal', exact=True) }}
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
 
     test:
       files:
@@ -333,7 +333,6 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE.TXT
-  summary: |
   summary: The Geospatial Data Abstraction Library (GDAL)
   description: |
     GDAL is a translator library for raster and vector geospatial data formats that is released under an
