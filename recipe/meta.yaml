@@ -15,6 +15,7 @@ build:
   number: 14
   # never be built on s390x
   skip: True  # [linux and s390x]
+  skip: True  # [py<36]
   skip_compile_pyc:
     - "share/bash-completion/completions/*.py"
   ignore_run_exports:
@@ -281,6 +282,8 @@ outputs:
       host:
         - python
         - pip
+        - setuptools
+        - wheel
         - numpy
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
         # Workaround to prevent run depending on "libgfortran5 9.3.0" despite "hdf5"
