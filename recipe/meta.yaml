@@ -1,4 +1,4 @@
-{% set version = "3.0.2" %}
+{% set version = "3.6.0" %}
 
 package:
   name: gdal-split
@@ -6,50 +6,51 @@ package:
 
 source:
   url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
-  sha256: c3765371ce391715c8f28bd6defbc70b57aa43341f6e94605f04fe3c92468983
+  sha256: f7afa4aa8d32d0799e011a9f573c6a67e9471f78e70d3d0d0b45b45c8c0c1a94
   patches:
-    # BUILT_AS_DYNAMIC_LIB.
-    - patches/windowshdf5.patch  # [win]
-    # Use multiple cores on Windows.
-    - patches/multiprocessor.patch  # [win]
-    # disable 12 bit jpeg on Windows as we aren't using internal jpeg
-    - patches/disable_jpeg12.patch  # [win]
-    # Fix missing include
-    - patches/include-limits-missing.patch  # [linux]
+    - 0001-Improve-numpy-fixing.patch
+    - 0002-Parquet-make-sure-that-ArrowLayer-destructor-is-avai.patch
 
 build:
-  number: 6
-  # Has never been built for s390x
-  skip: True  # [s390x]
+  number: 0
+  # never be built on s390x
+  skip: True  # [linux and s390x]
+  skip: True  # [py<36]
+  skip_compile_pyc:
+    - "share/bash-completion/completions/*.py"
   ignore_run_exports:
     - krb5  # [win]
 
 requirements:
   build:
-    - cmake  # [win]
-    - pkg-config >=0.21  # [not win]
+    - cmake
+    - pkg-config >=0.21      # [not win]
+    - make                   # [not win]
+    - ninja                  # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - make  # [not win]
-    - libtool  # [not win]
-    - m2-patch  # [win]
-    - patch  # [linux]
+    - sysroot_linux-64 2.17  # [linux64]
+    - patch                  # [not win]
+    - m2-patch               # [win]
+
   host:
+    - blosc
     - cfitsio
-    - curl
     - expat
     - freexl
     - geos
     - geotiff
-    - giflib  # [not win]
+    - giflib   # [not win]
     - hdf4
     - hdf5
     - icu
     - jpeg
-    - json-c  # [not win]
+    - json-c   # [not win]
     - kealib
+    - lerc
     - libcurl
-    - libdap4  # [not win]
+    - libdeflate
+    - libiconv
     - libkml
     - libnetcdf
     - libpng
@@ -57,65 +58,64 @@ requirements:
     - libspatialite
     - libtiff
     - libuuid  # [linux]
-    # exclusions due to https://bugs.launchpad.net/lxml/+bug/1928795
-    - libxml2 !=2.9.11, !=2.9.12
-    - m2w64-xz  # [win]
+    - libwebp-base
+    - libxml2
+    - lz4-c
     - openjpeg
     - openssl
-    - pcre
-    - poppler <=0.81  # [not win]
+    - pcre2
+    - poppler
     - postgresql
     - proj
+    - qhull
     - sqlite
+    - swig
     - tiledb
     - xerces-c
-    - xz  # [not win or vc>=14]
+    - xz
     - zlib
+    - zstd
 
 outputs:
   - name: libgdal
-    script: install_lib.sh   # [unix]
+    script: install_lib.sh  # [unix]
     script: install_lib.bat  # [win]
     build:
       run_exports:
         # no idea, going with minor pin
         - {{ pin_subpackage('libgdal', max_pin='x.x') }}
-      ignore_run_exports:
-        - icu  # [osx or win]
-        - libkml  # [win]
-        - libxml2  # [win]
-        - openssl  # [win]
-        - pcre  # [win]
-        - zstd  # [osx or win]
-        - xz  # [osx or win]
-        - zlib  # [osx or win]
-        - krb5  # [win]
+
     requirements:
       build:
+        - cmake
         # ranlib used at install time
         - {{ compiler('c') }}
+        - binutils               # [linux]
         # libstdc++ is needed in requirements/run
         - {{ compiler('cxx') }}
-        - pkg-config  # [not win]
-        - make  # [not win]
+        - pkg-config             # [not win]
+        - make                   # [unix]
+        - ninja                  # [win]
+        - sysroot_linux-64 2.17  # [linux and x86_64]
+
       host:
+        - blosc
         - cfitsio
-        - curl
         - expat
         - freexl
         - geos
         - geotiff
-        - giflib  # [not win]
+        - giflib   # [not win]
         - hdf4
         - hdf5
         - icu
         - jpeg
-        - json-c  # [not win]
+        - json-c   # [not win]
         - kealib
-        - krb5  # [win]
+        - lerc
         - libcurl
-        - libdap4  # [not win]
-        - libiconv  # [osx]
+        - libdeflate
+        - libiconv
         - libkml
         - libnetcdf
         - libpng
@@ -123,107 +123,198 @@ outputs:
         - libspatialite
         - libtiff
         - libuuid  # [linux]
-        # exclusions due to https://bugs.launchpad.net/lxml/+bug/1928795
-        - libxml2 !=2.9.11, !=2.9.12
-        - m2w64-xz  # [win]
+        - libwebp-base
+        - libxml2
+        - lz4-c
         - openjpeg
         - openssl
-        - pcre
-        - poppler <=0.81  # [not win]
+        - pcre2
+        - poppler
+        - postgresql
         - proj
+        - qhull
         - sqlite
         - tiledb
         - xerces-c
-        - xz  # [not win or vc>=14]
+        - xz
         - zlib
         - zstd
+
       run:
         - cfitsio
-        - expat  # [win]
         - geotiff
-        - giflib  # [not win]
-        - hdf5  # [win]
-        - json-c  # [not win]
-        - krb5  # [win]
-        - libdap4  # [not win]
-        - libiconv  # [win]
+        - giflib   # [not win]
+        - json-c   # [not win]
+        - libiconv
+        - libkml
         - libpq
         - libspatialite
         - libuuid  # [linux]
-        - libwebp-base  # [linux or osx]
-        - m2w64-xz  # [win]
-        - poppler # [not win]
+        - libwebp-base
+        - libxml2
+        - openjpeg
+        - poppler
+        - postgresql
         - proj
+        - qhull
         - tiledb
-        - vs2015_runtime  # [win]
-        - xerces-c  # [win]
-        - xz  # [not win or vc>=14]
-        - zlib
+        - xz
+        - zstd
+
     test:
       files:
         - test_data
-      commands:
-        - gdal_grid --version
-        - gdal_rasterize --version
-        - gdal_translate --version
-        - gdaladdo --version
-        - gdalenhance --version
-        - gdalwarp --version
-        - gdalinfo --formats
-        # (tkoch) this one fails often, maybe because of connectivity issues.
-        #- gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  # [not win]
-        - {{ RECIPE_DIR }}/run_test.bat  # [win]
-        - bash {{ RECIPE_DIR }}/run_test.sh  # [not win]
+        - run_test.bat
+        - run_test.sh
+
     about:
-      home: https://www.gdal.org
+      summary: The Geospatial Data Abstraction Library (GDAL)
       license: MIT
       license_family: MIT
       license_file: LICENSE.TXT
-      summary: The Geospatial Data Abstraction Library (GDAL)
-      description: |
-        GDAL is a translator library for raster and vector geospatial data formats that is released under an
-        X/MIT style Open Source license by the Open Source Geospatial Foundation.
-      dev_url: https://github.com/OSGeo/gdal
-      doc_url: https://gdal.org/tutorials/index.html
+
+  - name: libgdal-arrow-parquet
+    script: build_arrow_parquet.sh  # [unix]
+    script: build_arrow_parquet.bat  # [win]
+    build:
+      # only for libarrow > 10
+      skip: True  # [arrow_cpp != "10.0.1"]
+
+    requirements:
+      build:
+        - cmake
+        # ranlib used at install time
+        - {{ compiler('c') }}
+        - binutils               # [linux]
+        # libstdc++ is needed in requirements/run
+        - {{ compiler('cxx') }}
+        - pkg-config             # [not win]
+        - make  # [unix]
+        - ninja  # [win]
+        - sysroot_linux-64 2.17  # [linux and x86_64]
+
+      host:
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
+        - blosc
+        - cfitsio
+        - curl
+        - expat
+        - freexl
+        - geos
+        - geotiff
+        - giflib   # [not win]
+        - hdf4
+        - hdf5
+        - icu
+        - jpeg
+        - json-c   # [not win]
+        - kealib
+        - arrow-cpp
+        - libkml
+        - libnetcdf
+        - libpng
+        - libpq
+        - libspatialite
+        - libtiff
+        - libuuid  # [linux]
+        - libwebp-base
+        - libxml2
+        - openjpeg
+        - openssl
+        - pcre2
+        - poppler
+        - postgresql
+        - proj
+        - qhull
+        - sqlite
+        - tiledb
+        - xerces-c
+        - xz
+        - zlib
+        - zstd
+
+      run:
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
+        - cfitsio
+        - geotiff
+        - giflib   # [not win]
+        - json-c   # [not win]
+        - libpq
+        - libspatialite
+        - libuuid  # [linux]
+        - libwebp-base
+        - poppler
+        - postgresql
+        - proj
+        - tiledb
+        - xz
+        - zstd
+
+    test:
+      files:
+        - test_arrow_parquet.sh   # [unix]
+        - test_arrow_parquet.bat  # [win]
+      commands:
+        - sh test_arrow_parquet.sh   # [unix]
+        - test_arrow_parquet.bat  # [win]
+
+    about:
+      summary: Arrow and Parquet drivers for the Geospatial Data Abstraction Library (GDAL)
+      license: MIT
+      license_family: MIT
+      license_file: LICENSE.TXT
 
   - name: gdal
-    script: install_python.sh   # [unix]
+    script: install_python.sh  # [unix]
     script: install_python.bat  # [win]
     build:
-      ignore_run_exports:
-        - openssl
-        - hdf5
+      skip_compile_pyc:
+        - share/bash-completion/completions/*.py
+
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - cmake  # [win]
-        - make   # [not win]
+        - cmake
+        - make   # [unix]
+        - ninja  # [win]
+
       host:
         - python
-        - setuptools <58.0.0
         - pip
+        - setuptools
+        - wheel
         - numpy
-        - {{ pin_subpackage('libgdal', exact=True) }}
-        # openssl and hdf5 are dependencies from libgdal but are included here
-        # as conda-build tried to use incompatible versions if they are not
-        # explicitiy listed.  Ignore the run exports using ignore_run_exports.
-        # see https://github.com/conda/conda-build/issues/3308
-        - openssl
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
+        # Workaround to prevent run depending on "libgfortran5 9.3.0" despite "hdf5"
+        # having not been migrated yet causing conflicts with the "libgdal" output
+        # See: https://github.com/conda-forge/gdal-feedstock/pull/415
         - hdf5
+        # Workaround to prevent conflicts seen in
+        #  https://github.com/conda-forge/gdal-feedstock/pull/543
+        - openssl
+        - openjpeg
+        - libiconv
+        - libxml2
+        - blosc
+        - cfitsio
+        - expat
+        - freexl
+        - geos
+        - geotiff
+        - giflib   # [not win]
+        - hdf4
       run:
         - python
         - {{ pin_compatible('numpy') }}
-        - {{ pin_subpackage('libgdal', exact=True) }}
+        - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
+
     test:
       files:
         - test_data
         - extra_tests.py
         - run_test.py
       imports:
-        - osr
-        - gdal
-        - gdalconst
         - osgeo
         - osgeo.ogr
         - osgeo.gdal
@@ -233,20 +324,15 @@ outputs:
         - osgeo._osr
       commands:
         - python run_test.py
-    about:
-      home: https://www.gdal.org
-      license: MIT
-      license_family: MIT
-      license_file: LICENSE.TXT
-      summary: Python wrapper for the Geospatial Data Abstraction Library (GDAL)
-      description: |
-        GDAL is a translator library for raster and vector geospatial data formats that is released under an
-        X/MIT style Open Source license by the Open Source Geospatial Foundation.
-      dev_url: https://github.com/OSGeo/gdal
-      doc_url: https://gdal.org/tutorials/index.html
+
+      about:
+        summary: Python wrapper for the Geospatial Data Abstraction Library (GDAL)
+        license: MIT
+        license_family: MIT
+        license_file: LICENSE.TXT
 
 about:
-  home: https://www.gdal.org
+  home: http://www.gdal.org
   license: MIT
   license_family: MIT
   license_file: LICENSE.TXT
@@ -259,8 +345,12 @@ about:
 
 extra:
   recipe-maintainers:
+    - zklaus
+    - akrherz
     - gillins
+    - katietz
     - kmuehlbauer
     - mingwandroid
     - msarahan
     - ocefpaf
+    - xylar
