@@ -1,18 +1,14 @@
-{% set version = "3.6.0" %}
+{% set version = "3.6.2" %}
 
 package:
   name: gdal-split
   version: {{ version }}
 
 source:
-  url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
-  sha256: f7afa4aa8d32d0799e011a9f573c6a67e9471f78e70d3d0d0b45b45c8c0c1a94
-  patches:
-    - 0001-Improve-numpy-fixing.patch
-    - 0002-Parquet-make-sure-that-ArrowLayer-destructor-is-avai.patch
-
+  url: https://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
+  sha256: 35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681
 build:
-  number: 1
+  number: 0
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
@@ -30,8 +26,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - sysroot_linux-64 2.17  # [linux64]
-    - patch                  # [not win]
-    - m2-patch               # [win]
 
   host:
     - blosc
@@ -67,7 +61,8 @@ requirements:
     - poppler
     - postgresql
     - proj
-    - qhull
+    # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
+    # - qhull
     - sqlite
     - swig
     - tiledb
@@ -132,7 +127,8 @@ outputs:
         - poppler
         - postgresql
         - proj
-        - qhull
+        # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
+        # - qhull
         - sqlite
         - tiledb
         - xerces-c
@@ -332,7 +328,7 @@ outputs:
         license_file: LICENSE.TXT
 
 about:
-  home: http://www.gdal.org
+  home: https://www.gdal.org
   license: MIT
   license_family: MIT
   license_file: LICENSE.TXT
