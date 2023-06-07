@@ -8,7 +8,7 @@ source:
   url: https://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
   sha256: 35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681
 build:
-  number: 3
+  number: 4
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
@@ -35,6 +35,7 @@ requirements:
     - giflib   # [not win]
     - hdf4
     - hdf5 1.12.1
+    - icu 73
     - jpeg
     - json-c   # [not win]
     - kealib
@@ -99,6 +100,7 @@ outputs:
         - giflib   # [not win]
         - hdf4
         - hdf5 1.12.1
+        - icu 73
         - jpeg
         - json-c   # [not win]
         - kealib
@@ -195,6 +197,7 @@ outputs:
         - giflib   # [not win]
         - hdf4
         - hdf5 1.12.1
+        - icu 73
         - jpeg
         - json-c   # [not win]
         - kealib
