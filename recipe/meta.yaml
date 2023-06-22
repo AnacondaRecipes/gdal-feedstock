@@ -275,6 +275,8 @@ outputs:
         - wheel
         - numpy
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
+        # We need to have the same versions as in the host for libgdal
+        - openjpeg
       run:
         - python
         - {{ pin_compatible('numpy') }}
