@@ -194,7 +194,7 @@ outputs:
         - geotiff
         - giflib   # [not win]
         - hdf4
-        - hdf5
+        - hdf5 1.12.1
         - jpeg
         - json-c   # [not win]
         - kealib
