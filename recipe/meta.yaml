@@ -50,7 +50,7 @@ requirements:
     - libtiff
     - libuuid  # [linux]
     - libwebp-base
-    - libxml2 2.10
+    - libxml2 {{ libxml2 }}
     - lz4-c
     - openjpeg
     - openssl 3.0.8
@@ -114,7 +114,7 @@ outputs:
         - libtiff
         - libuuid  # [linux]
         - libwebp-base
-        - libxml2 2.10
+        - libxml2 {{ libxml2 }}
         - lz4-c
         - openjpeg
         - openssl 3.0.8
@@ -207,7 +207,7 @@ outputs:
         - libtiff
         - libuuid  # [linux]
         - libwebp-base
-        - libxml2 2.10
+        - libxml2 {{ libxml2 }}
         - openjpeg
         - openssl 3.0.8
         - pcre2
@@ -275,7 +275,7 @@ outputs:
         - wheel
         - numpy
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
-        # We need to have the same versions as in the host for libgdal
+        # Without this, the solver is having a hard time resolving the correct dependencies...
         - openjpeg
       run:
         - python
@@ -305,7 +305,7 @@ outputs:
         license_file: LICENSE.TXT
 
 about:
-  home: https://www.gdal.org
+  home: https://gdal.org
   license: MIT
   license_family: MIT
   license_file: LICENSE.TXT
