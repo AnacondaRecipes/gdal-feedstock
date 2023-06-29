@@ -8,14 +8,12 @@ source:
   url: https://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
   sha256: 35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681
 build:
-  number: 1
+  number: 2
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
   skip_compile_pyc:
     - "share/bash-completion/completions/*.py"
-  ignore_run_exports:
-    - krb5  # [win]
 
 requirements:
   build:
@@ -36,36 +34,34 @@ requirements:
     - geotiff
     - giflib   # [not win]
     - hdf4
-    - hdf5
-    - icu
+    - hdf5 1.12.1
     - jpeg
     - json-c   # [not win]
     - kealib
     - lerc
-    - libcurl
+    - libcurl 7.88.1
     - libdeflate 1.17
     - libiconv
     - libkml
-    - libnetcdf
+    - libnetcdf 4.8.1
     - libpng
-    - libpq
+    - libpq 12.15
     - libspatialite
     - libtiff
     - libuuid  # [linux]
     - libwebp-base
-    - libxml2 2.10
+    - libxml2 {{ libxml2 }}
     - lz4-c
     - openjpeg
-    - openssl
+    - openssl 3.0.8
     - pcre2
     - poppler
-    - postgresql
     - proj
     # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
     # - qhull
     - sqlite
     - swig
-    - tiledb
+    - tiledb 2.3.3
     - xerces-c
     - xz
     - zlib
@@ -102,35 +98,33 @@ outputs:
         - geotiff
         - giflib   # [not win]
         - hdf4
-        - hdf5
-        - icu
+        - hdf5 1.12.1
         - jpeg
         - json-c   # [not win]
         - kealib
         - lerc
-        - libcurl
+        - libcurl 7.88.1
         - libdeflate 1.17
         - libiconv
         - libkml
-        - libnetcdf
+        - libnetcdf 4.8.1
         - libpng
-        - libpq
+        - libpq 12.15
         - libspatialite
         - libtiff
         - libuuid  # [linux]
         - libwebp-base
-        - libxml2 2.10
+        - libxml2 {{ libxml2 }}
         - lz4-c
         - openjpeg
-        - openssl
+        - openssl 3.0.8
         - pcre2
         - poppler
-        - postgresql
         - proj
         # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
         # - qhull
         - sqlite
-        - tiledb
+        - tiledb 2.3.3
         - xerces-c
         - xz
         - zlib
@@ -150,12 +144,12 @@ outputs:
         - libxml2
         - openjpeg
         - poppler
-        - postgresql
         - proj
         - qhull
         - tiledb
         - xz
         - zstd
+        - openssl 3.*
 
     test:
       files:
@@ -200,8 +194,7 @@ outputs:
         - geotiff
         - giflib   # [not win]
         - hdf4
-        - hdf5
-        - icu
+        - hdf5 1.12.1
         - jpeg
         - json-c   # [not win]
         - kealib
@@ -214,9 +207,9 @@ outputs:
         - libtiff
         - libuuid  # [linux]
         - libwebp-base
-        - libxml2 2.10
+        - libxml2 {{ libxml2 }}
         - openjpeg
-        - openssl
+        - openssl 3.0.8
         - pcre2
         - poppler
         - postgresql
@@ -240,11 +233,11 @@ outputs:
         - libuuid  # [linux]
         - libwebp-base
         - poppler
-        - postgresql
         - proj
         - tiledb
         - xz
         - zstd
+        - openssl 3.*
 
     test:
       files:
@@ -282,24 +275,8 @@ outputs:
         - wheel
         - numpy
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
-        # Workaround to prevent run depending on "libgfortran5 9.3.0" despite "hdf5"
-        # having not been migrated yet causing conflicts with the "libgdal" output
-        # See: https://github.com/conda-forge/gdal-feedstock/pull/415
-        - hdf5
-        # Workaround to prevent conflicts seen in
-        #  https://github.com/conda-forge/gdal-feedstock/pull/543
-        - openssl
+        # Without this, the solver is having a hard time resolving the correct dependencies...
         - openjpeg
-        - libiconv
-        - libxml2 2.10
-        - blosc
-        - cfitsio
-        - expat
-        - freexl
-        - geos
-        - geotiff
-        - giflib   # [not win]
-        - hdf4
       run:
         - python
         - {{ pin_compatible('numpy') }}
@@ -328,7 +305,7 @@ outputs:
         license_file: LICENSE.TXT
 
 about:
-  home: https://www.gdal.org
+  home: https://gdal.org
   license: MIT
   license_family: MIT
   license_file: LICENSE.TXT
