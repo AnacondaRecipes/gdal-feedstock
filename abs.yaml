@@ -1,3 +1,8 @@
 # the conda-build parameters to use for disabling --skip-existing
 build_parameters:
   - "--suppress-variables"
+
+channels:
+  jcmorin-ana-org: pdal
+
+upload_without_merge: True
