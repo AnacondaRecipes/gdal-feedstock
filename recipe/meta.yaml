@@ -8,7 +8,7 @@ source:
   url: https://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
   sha256: 35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681
 build:
-  number: 2
+  number: 3
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
@@ -53,7 +53,7 @@ requirements:
     - libxml2 {{ libxml2 }}
     - lz4-c
     - openjpeg
-    - openssl 3.0.8
+    - openssl {{ openssl }}
     - pcre2
     - poppler
     - proj
@@ -117,7 +117,7 @@ outputs:
         - libxml2 {{ libxml2 }}
         - lz4-c
         - openjpeg
-        - openssl 3.0.8
+        - openssl {{ openssl }}
         - pcre2
         - poppler
         - proj
@@ -149,7 +149,7 @@ outputs:
         - tiledb
         - xz
         - zstd
-        - openssl 3.*
+        - openssl  # exact pin handled through openssl run_exports
 
     test:
       files:
@@ -209,7 +209,7 @@ outputs:
         - libwebp-base
         - libxml2 {{ libxml2 }}
         - openjpeg
-        - openssl 3.0.8
+        - openssl {{ openssl }}
         - pcre2
         - poppler
         - postgresql
@@ -237,7 +237,7 @@ outputs:
         - tiledb
         - xz
         - zstd
-        - openssl 3.*
+        - openssl  # exact pin handled through openssl run_exports
 
     test:
       files:
@@ -257,6 +257,11 @@ outputs:
     script: install_python.sh  # [unix]
     script: install_python.bat  # [win]
     build:
+      ignore_run_exports:
+        # Ignoring the run export since we use openssl in the host section
+        # as a means to produce the right variants only. We don't need the dependency
+        # since it's already on libcurl.
+        - openssl
       skip_compile_pyc:
         - share/bash-completion/completions/*.py
 
@@ -274,6 +279,7 @@ outputs:
         - setuptools
         - wheel
         - numpy
+        - openssl {{openssl }}  # Only required to produce all openssl variants.
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
         # Without this, the solver is having a hard time resolving the correct dependencies...
         - openjpeg
