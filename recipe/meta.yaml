@@ -7,6 +7,8 @@ package:
 source:
   url: https://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
   sha256: 35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681
+  patches:
+    - patches/0001-FindSPATIALITE.patch
 build:
   number: 4
   # never be built on s390x
@@ -24,7 +26,8 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - sysroot_linux-64 2.17  # [linux64]
-
+    - patch                  # [unix]
+    - m2-patch               # [win]
   host:
     - blosc
     - cfitsio
