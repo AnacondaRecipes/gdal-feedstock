@@ -3,7 +3,3 @@ build_parameters:
   - "--suppress-variables"
 
 aggregate_branch: 3.12
-
-channels:
-  - https://staging.continuum.io/prefect/fs/libspatialite-feedstock/pr10/6aa4126
-  - https://staging.continuum.io/prefect/fs/geotiff-feedstock/pr11/66864eb
