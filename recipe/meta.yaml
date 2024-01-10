@@ -42,7 +42,7 @@ requirements:
     - json-c   # [not win]
     - kealib
     - lerc
-    - libcurl 7.88.1
+    - libcurl 8.1.1
     - libdeflate 1.17
     - libiconv
     - libkml
@@ -106,7 +106,7 @@ outputs:
         - json-c   # [not win]
         - kealib
         - lerc
-        - libcurl 7.88.1
+        - libcurl 8.1.1
         - libdeflate 1.17
         - libiconv
         - libkml
