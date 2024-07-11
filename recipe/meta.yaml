@@ -10,7 +10,7 @@ source:
   patches:
     - patches/0001-FindSPATIALITE.patch
 build:
-  number: 4
+  number: 5
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]

@@ -2,4 +2,7 @@
 build_parameters:
   - "--suppress-variables"
 
-aggregate_branch: 3.12
+aggregate_branch: libxml_2.13.1
+
+channels:
+  - https://staging.continuum.io/prefect/fs/libspatialite-feedstock/pr11/e578f96
