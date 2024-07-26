@@ -9,6 +9,11 @@ source:
   sha256: 35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681
   patches:
     - patches/0001-FindSPATIALITE.patch
+    # Fix build error with libxml2 2.12. Fixed in gdal v3.9.0,
+    # see https://github.com/OSGeo/gdal/issues/8746
+    - patches/cbed9fc91dffba30d0f9a6a06a412a04d9cd36fa.patch
+    - patches/ec33f6d6dfe944f59dc5454d01b4d000d9479c02.patch
+
 build:
   number: 5
   # never be built on s390x
@@ -53,7 +58,7 @@ requirements:
     - libtiff
     - libuuid  # [linux]
     - libwebp-base
-    - libxml2 {{ libxml2 }}
+    - libxml2 2.13
     - lz4-c
     - openjpeg
     - openssl {{ openssl }}
