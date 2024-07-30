@@ -5,7 +5,7 @@ build_parameters:
 aggregate_branch: libxml_2.13.1
 
 channels:
-  - https://staging.continuum.io/prefect/fs/libspatialite-feedstock/pr11/e578f96
-  - https://staging.continuum.io/prefect/fs/fontconfig-feedstock/pr11/5221e48
-  - https://staging.continuum.io/prefect/fs/gettext-feedstock/pr6/c7dfc15
+  - https://staging.continuum.io/prefect/fs/libspatialite-feedstock/pr11/2acebfd
+  - https://staging.continuum.io/prefect/fs/fontconfig-feedstock/pr11/3322e36
+  - https://staging.continuum.io/prefect/fs/gettext-feedstock/pr6/c7aa8c4
   - https://staging.continuum.io/prefect/fs/libxml2-feedstock/pr17/1c2e862
