@@ -58,7 +58,7 @@ requirements:
     - libtiff
     - libuuid  # [linux]
     - libwebp-base
-    - libxml2 2.13
+    - libxml2 {{ libxml2 }}
     - lz4-c
     - openjpeg
     - openssl {{ openssl }}
