@@ -39,7 +39,7 @@ requirements:
     - expat {{ expat }}
     - freexl
     - geos {{ geos }}
-    - geotiff {{ geos }}
+    - geotiff {{ getiff }}
     - giflib {{ giflib }}  # [not win]
     - hdf4 {{ hdf4 }}
     - hdf5 {{ hdf5 }}
@@ -100,43 +100,43 @@ outputs:
       host:
         - blosc
         - cfitsio
-        - expat
+        - expat {{ expat }}
         - freexl
-        - geos
-        - geotiff
-        - giflib   # [not win]
-        - hdf4
-        - hdf5 1.12.1
-        - jpeg
+        - geos {{ geos }}
+        - geotiffgeotiff {{ geotiff }}
+        - giflib {{ giflib }}   # [not win]
+        - hdf4 {{ hdf4 }}
+        - hdf5 {{ hdf5 }}
+        - jpeg {{ jpeg }}
         - json-c   # [not win]
         - kealib
         - lerc
-        - libcurl 8.1.1
+        - libcurl {{ libcurl }}
         - libdeflate 1.17
         - libiconv
         - libkml
-        - libnetcdf 4.8.1
-        - libpng
+        - libnetcdf {{ libnetcdf }}
+        - libpng {{ libpng }}
         - libpq 12.15
         - libspatialite
-        - libtiff
+        - libtiff {{ libtiff }}
         - libuuid  # [linux]
         - libwebp-base
         - libxml2 {{ libxml2 }}
         - lz4-c
-        - openjpeg
+        - openjpeg {{ openjpeg }}
         - openssl {{ openssl }}
         - pcre2
         - poppler 22.12.0
-        - proj
+        - proj {{ proj }}
         # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
         # - qhull
-        - sqlite
+        - sqlite {{ sqlite }}
         - tiledb 2.3.3
         - xerces-c
-        - xz
-        - zlib
-        - zstd
+        - xz {{ xz }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
 
       run:
         - cfitsio
@@ -196,39 +196,39 @@ outputs:
         - blosc
         - cfitsio
         - curl
-        - expat
+        - expat {{ expat }}
         - freexl
-        - geos
-        - geotiff
-        - giflib   # [not win]
-        - hdf4
-        - hdf5 1.12.1
-        - jpeg
+        - geos {{ geos }}
+        - geotiffgeotiff {{ geotiff }}
+        - giflib {{ giflib }}   # [not win]
+        - hdf4 {{ hdf4 }}
+        - hdf5 {{ hdf5 }}
+        - jpeg {{ jpeg }}
         - json-c   # [not win]
         - kealib
         - arrow-cpp
         - libkml
-        - libnetcdf
-        - libpng
+        - libnetcdf {{ libnetcdf }}
+        - libpng {{ libpng }}
         - libpq
         - libspatialite
-        - libtiff
+        - libtiff {{ libtiff }}
         - libuuid  # [linux]
         - libwebp-base
         - libxml2 {{ libxml2 }}
-        - openjpeg
+        - openjpeg {{ openjpeg }}
         - openssl {{ openssl }}
         - pcre2
         - poppler
         - postgresql
-        - proj
+        - proj {{ proj }}
         - qhull
-        - sqlite
+        - sqlite {{ sqlite }}
         - tiledb
         - xerces-c
-        - xz
-        - zlib
-        - zstd
+        - xz {{ xz }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
 
       run:
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
@@ -290,7 +290,7 @@ outputs:
         - openssl {{openssl }}  # Only required to produce all openssl variants.
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
         # Without this, the solver is having a hard time resolving the correct dependencies...
-        - openjpeg
+        - openjpeg {{ openjpeg }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
