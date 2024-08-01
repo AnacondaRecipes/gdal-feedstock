@@ -36,44 +36,44 @@ requirements:
   host:
     - blosc
     - cfitsio
-    - expat
+    - expat {{ expat }}
     - freexl
-    - geos
-    - geotiff
-    - giflib   # [not win]
-    - hdf4
-    - hdf5 1.12.1
-    - jpeg
+    - geos {{ geos }}
+    - geotiff {{ geos }}
+    - giflib {{ giflib }}  # [not win]
+    - hdf4 {{ hdf4 }}
+    - hdf5 {{ hdf5 }}
+    - jpeg {{ jpeg }}
     - json-c   # [not win]
     - kealib
     - lerc
-    - libcurl 8.1.1
+    - libcurl {{ libcurl }}
     - libdeflate 1.17
     - libiconv
     - libkml
-    - libnetcdf 4.8.1
-    - libpng
+    - libnetcdf {{ libnetcdf }}
+    - libpng {{ libpng }}
     - libpq 12.15
     - libspatialite
-    - libtiff
+    - libtiff {{ libtiff }}
     - libuuid  # [linux]
     - libwebp-base
     - libxml2 {{ libxml2 }}
     - lz4-c
-    - openjpeg
+    - openjpeg {{ openjpeg }}
     - openssl {{ openssl }}
     - pcre2
     - poppler 22.12.0
-    - proj
+    - proj {{ proj }}
     # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
     # - qhull
-    - sqlite
+    - sqlite {{ sqlite }}
     - swig
     - tiledb 2.3.3
     - xerces-c
-    - xz
-    - zlib
-    - zstd
+    - xz {{ xz }}
+    - zlib {{ zlib }}
+    - zstd {{ zstd }}
 
 outputs:
   - name: libgdal
