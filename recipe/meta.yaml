@@ -39,7 +39,7 @@ requirements:
     - expat {{ expat }}
     - freexl
     - geos {{ geos }}
-    - geotiff {{ getiff }}
+    - geotiff
     - giflib {{ giflib }}  # [not win]
     - hdf4 {{ hdf4 }}
     - hdf5 {{ hdf5 }}
@@ -103,7 +103,7 @@ outputs:
         - expat {{ expat }}
         - freexl
         - geos {{ geos }}
-        - geotiffgeotiff {{ geotiff }}
+        - geotiff
         - giflib {{ giflib }}   # [not win]
         - hdf4 {{ hdf4 }}
         - hdf5 {{ hdf5 }}
@@ -199,7 +199,7 @@ outputs:
         - expat {{ expat }}
         - freexl
         - geos {{ geos }}
-        - geotiffgeotiff {{ geotiff }}
+        - geotiff
         - giflib {{ giflib }}   # [not win]
         - hdf4 {{ hdf4 }}
         - hdf5 {{ hdf5 }}
