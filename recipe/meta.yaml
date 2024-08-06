@@ -9,8 +9,13 @@ source:
   sha256: 35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681
   patches:
     - patches/0001-FindSPATIALITE.patch
+    # Fix build error with libxml2 2.12. Fixed in gdal v3.9.0,
+    # see https://github.com/OSGeo/gdal/issues/8746
+    - patches/cbed9fc91dffba30d0f9a6a06a412a04d9cd36fa.patch
+    - patches/ec33f6d6dfe944f59dc5454d01b4d000d9479c02.patch
+
 build:
-  number: 4
+  number: 5
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
@@ -31,44 +36,44 @@ requirements:
   host:
     - blosc
     - cfitsio
-    - expat
+    - expat {{ expat }}
     - freexl
-    - geos
+    - geos {{ geos }}
     - geotiff
-    - giflib   # [not win]
-    - hdf4
-    - hdf5 1.12.1
-    - jpeg
+    - giflib {{ giflib }}  # [not win]
+    - hdf4 {{ hdf4 }}
+    - hdf5 {{ hdf5 }}
+    - jpeg {{ jpeg }}
     - json-c   # [not win]
     - kealib
     - lerc
-    - libcurl 8.1.1
+    - libcurl {{ libcurl }}
     - libdeflate 1.17
     - libiconv
     - libkml
-    - libnetcdf 4.8.1
-    - libpng
+    - libnetcdf {{ libnetcdf }}
+    - libpng {{ libpng }}
     - libpq 12.15
     - libspatialite
-    - libtiff
+    - libtiff {{ libtiff }}
     - libuuid  # [linux]
     - libwebp-base
     - libxml2 {{ libxml2 }}
     - lz4-c
-    - openjpeg
+    - openjpeg {{ openjpeg }}
     - openssl {{ openssl }}
     - pcre2
-    - poppler
-    - proj
+    - poppler 22.12.0
+    - proj {{ proj }}
     # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
     # - qhull
-    - sqlite
+    - sqlite {{ sqlite }}
     - swig
     - tiledb 2.3.3
     - xerces-c
-    - xz
-    - zlib
-    - zstd
+    - xz {{ xz }}
+    - zlib {{ zlib }}
+    - zstd {{ zstd }}
 
 outputs:
   - name: libgdal
@@ -95,43 +100,43 @@ outputs:
       host:
         - blosc
         - cfitsio
-        - expat
+        - expat {{ expat }}
         - freexl
-        - geos
+        - geos {{ geos }}
         - geotiff
-        - giflib   # [not win]
-        - hdf4
-        - hdf5 1.12.1
-        - jpeg
+        - giflib {{ giflib }}   # [not win]
+        - hdf4 {{ hdf4 }}
+        - hdf5 {{ hdf5 }}
+        - jpeg {{ jpeg }}
         - json-c   # [not win]
         - kealib
         - lerc
-        - libcurl 8.1.1
+        - libcurl {{ libcurl }}
         - libdeflate 1.17
         - libiconv
         - libkml
-        - libnetcdf 4.8.1
-        - libpng
+        - libnetcdf {{ libnetcdf }}
+        - libpng {{ libpng }}
         - libpq 12.15
         - libspatialite
-        - libtiff
+        - libtiff {{ libtiff }}
         - libuuid  # [linux]
         - libwebp-base
         - libxml2 {{ libxml2 }}
         - lz4-c
-        - openjpeg
+        - openjpeg {{ openjpeg }}
         - openssl {{ openssl }}
         - pcre2
-        - poppler
-        - proj
+        - poppler 22.12.0
+        - proj {{ proj }}
         # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
         # - qhull
-        - sqlite
+        - sqlite {{ sqlite }}
         - tiledb 2.3.3
         - xerces-c
-        - xz
-        - zlib
-        - zstd
+        - xz {{ xz }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
 
       run:
         - cfitsio
@@ -191,39 +196,39 @@ outputs:
         - blosc
         - cfitsio
         - curl
-        - expat
+        - expat {{ expat }}
         - freexl
-        - geos
+        - geos {{ geos }}
         - geotiff
-        - giflib   # [not win]
-        - hdf4
-        - hdf5 1.12.1
-        - jpeg
+        - giflib {{ giflib }}   # [not win]
+        - hdf4 {{ hdf4 }}
+        - hdf5 {{ hdf5 }}
+        - jpeg {{ jpeg }}
         - json-c   # [not win]
         - kealib
         - arrow-cpp
         - libkml
-        - libnetcdf
-        - libpng
+        - libnetcdf {{ libnetcdf }}
+        - libpng {{ libpng }}
         - libpq
         - libspatialite
-        - libtiff
+        - libtiff {{ libtiff }}
         - libuuid  # [linux]
         - libwebp-base
         - libxml2 {{ libxml2 }}
-        - openjpeg
+        - openjpeg {{ openjpeg }}
         - openssl {{ openssl }}
         - pcre2
         - poppler
         - postgresql
-        - proj
+        - proj {{ proj }}
         - qhull
-        - sqlite
+        - sqlite {{ sqlite }}
         - tiledb
         - xerces-c
-        - xz
-        - zlib
-        - zstd
+        - xz {{ xz }}
+        - zlib {{ zlib }}
+        - zstd {{ zstd }}
 
       run:
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
@@ -285,7 +290,7 @@ outputs:
         - openssl {{openssl }}  # Only required to produce all openssl variants.
         - {{ pin_subpackage('libgdal', max_pin='x.x.x', exact=True) }}
         # Without this, the solver is having a hard time resolving the correct dependencies...
-        - openjpeg
+        - openjpeg {{ openjpeg }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
