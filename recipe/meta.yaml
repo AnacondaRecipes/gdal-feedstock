@@ -15,7 +15,7 @@ source:
     - patches/ec33f6d6dfe944f59dc5454d01b4d000d9479c02.patch
 
 build:
-  number: 5
+  number: 6
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
@@ -74,6 +74,8 @@ requirements:
     - xz {{ xz }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
+  run_constrained:
+    - poppler ==22.12.0
 
 outputs:
   - name: libgdal
@@ -158,6 +160,8 @@ outputs:
         - xz
         - zstd
         - openssl  # exact pin handled through openssl run_exports
+      run_constrained:
+        - poppler ==22.12.0
 
     test:
       files:
