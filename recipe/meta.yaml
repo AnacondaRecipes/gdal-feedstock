@@ -74,8 +74,6 @@ requirements:
     - xz {{ xz }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
-  run_constrained:
-    - poppler ==22.12.0
 
 outputs:
   - name: libgdal
@@ -160,8 +158,7 @@ outputs:
         - xz
         - zstd
         - openssl  # exact pin handled through openssl run_exports
-      run_constrained:
-        - poppler ==22.12.0
+        - {{ pin_compatible('poppler', max_pin='x.x') }}
 
     test:
       files:
