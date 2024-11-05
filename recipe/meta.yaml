@@ -151,7 +151,6 @@ outputs:
         - libwebp-base
         - libxml2
         - openjpeg
-        - poppler
         - proj
         - qhull
         - tiledb
