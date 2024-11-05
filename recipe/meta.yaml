@@ -157,7 +157,7 @@ outputs:
         - xz
         - zstd
         - openssl  # exact pin handled through openssl run_exports
-        - {{ pin_compatible('poppler', max_pin='x.x') }}
+        - {{ pin_compatible('poppler', max_pin='x.x.x') }}
 
     test:
       files:
