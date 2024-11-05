@@ -15,7 +15,7 @@ source:
     - patches/ec33f6d6dfe944f59dc5454d01b4d000d9479c02.patch
 
 build:
-  number: 5
+  number: 6
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
@@ -151,13 +151,13 @@ outputs:
         - libwebp-base
         - libxml2
         - openjpeg
-        - poppler
         - proj
         - qhull
         - tiledb
         - xz
         - zstd
         - openssl  # exact pin handled through openssl run_exports
+        - {{ pin_compatible('poppler', max_pin='x.x.x') }}
 
     test:
       files:
