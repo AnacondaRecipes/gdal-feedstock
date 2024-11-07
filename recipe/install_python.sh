@@ -28,4 +28,4 @@ EOF
 
 $PYTHON setup.py build_ext
 
-$PYTHON -m pip install --no-deps --ignore-installed .
+$PYTHON -m pip install --no-deps --no-build-isolation --ignore-installed .

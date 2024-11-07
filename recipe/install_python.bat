@@ -20,5 +20,5 @@ copy "%SRC_DIR%"\swig\python\osgeo\*.py osgeo
 if errorlevel 1 exit /b 1
 copy "%SRC_DIR%"\swig\python\extensions\*.c* extensions
 if errorlevel 1 exit /b 1
-%PYTHON% setup.py install
+%PYTHON% -m pip install --no-deps --no-build-isolation .
 if errorlevel 1 exit /b 1
