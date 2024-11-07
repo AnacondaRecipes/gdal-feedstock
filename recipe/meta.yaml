@@ -15,7 +15,7 @@ source:
     - patches/ec33f6d6dfe944f59dc5454d01b4d000d9479c02.patch
 
 build:
-  number: 6
+  number: 7
   # never be built on s390x
   skip: True  # [linux and s390x]
   skip: True  # [py<36]
@@ -127,7 +127,7 @@ outputs:
         - openjpeg {{ openjpeg }}
         - openssl {{ openssl }}
         - pcre2
-        - poppler 22.12.0
+        - poppler 24.09.0
         - proj {{ proj }}
         # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
         # - qhull
