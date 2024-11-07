@@ -5,7 +5,8 @@
 set -ex # Abort on error.
 
 # also allow newer symbols (https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk)
-export CXXFLAGS="${CXXFLAGS} -std=c++17 -D_LIBCPP_DISABLE_AVAILABILITY -DHAVE_POPPLER"
+# Need C++20 for string methods (https://en.cppreference.com/w/cpp/string/basic_string_view/starts_with)
+export CXXFLAGS="${CXXFLAGS} -std=c++20 -D_LIBCPP_DISABLE_AVAILABILITY -DHAVE_POPPLER"
 
 mkdir build
 cd build
