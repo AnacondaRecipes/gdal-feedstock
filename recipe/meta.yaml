@@ -13,6 +13,7 @@ source:
     # see https://github.com/OSGeo/gdal/issues/8746
     - patches/cbed9fc91dffba30d0f9a6a06a412a04d9cd36fa.patch
     - patches/ec33f6d6dfe944f59dc5454d01b4d000d9479c02.patch
+    - patches/0002-c++20-syntax.patch
 
 build:
   number: 7
