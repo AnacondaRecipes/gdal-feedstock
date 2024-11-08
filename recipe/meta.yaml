@@ -241,7 +241,7 @@ outputs:
         - libspatialite
         - libuuid  # [linux]
         - libwebp-base
-        - poppler
+        - {{ pin_compatible('poppler', max_pin='x.x.x') }}
         - proj
         - tiledb
         - xz
