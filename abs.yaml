@@ -1,3 +1,2 @@
-# the conda-build parameters to use for disabling --skip-existing
-build_parameters:
-  - "--suppress-variables"
+ channels:
+    - https://staging.continuum.io/prefect/fs/postgresql-feedstock/pr10/29d70f6
