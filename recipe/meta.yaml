@@ -151,6 +151,7 @@ outputs:
         - libuuid  # [linux]
         - libwebp-base
         - libxml2
+        - minizip  # [linux]
         - openjpeg
         - proj
         - qhull
