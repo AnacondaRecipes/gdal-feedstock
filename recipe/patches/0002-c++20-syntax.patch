@@ -1,0 +1,38 @@
+diff --git a/frmts/netcdf/netcdfvirtual.h b/frmts/netcdf/netcdfvirtual.h
+index 5b41517..38bbcf5 100644
+--- a/frmts/netcdf/netcdfvirtual.h
++++ b/frmts/netcdf/netcdfvirtual.h
+@@ -135,7 +135,7 @@ class netCDFVGeneralAttribute : public netCDFVAttribute
+     VClass value;
+
+   public:
+-    netCDFVGeneralAttribute<VClass, ntype>(const char *a_name,
++    netCDFVGeneralAttribute(const char *a_name,
+                                            const VClass *a_value)
+         : name(a_name), value(*a_value)
+     {
+diff --git a/frmts/tiledb/tiledbdataset.cpp b/frmts/tiledb/tiledbdataset.cpp
+index 6f35390..5d3223b 100644
+--- a/frmts/tiledb/tiledbdataset.cpp
++++ b/frmts/tiledb/tiledbdataset.cpp
+@@ -28,6 +28,7 @@
+
+ #include <cassert>
+ #include <list>
++#include <stdexcept>
+
+ #include "cpl_string.h"
+ #include "gdal_frmts.h"
+diff --git a/ogr/ogrsf_frmts/elastic/ogrelasticlayer.cpp b/ogr/ogrsf_frmts/elastic/ogrelasticlayer.cpp
+index 2ab7658..9a5b4c0 100644
+--- a/ogr/ogrsf_frmts/elastic/ogrelasticlayer.cpp
++++ b/ogr/ogrsf_frmts/elastic/ogrelasticlayer.cpp
+@@ -1141,7 +1141,7 @@ json_object *OGRElasticLayer::BuildSort()
+         const int nIdx =
+             m_poFeatureDefn->GetFieldIndex(m_aoSortColumns[i].osColumn);
+         CPLString osFieldName(
+-            nIdx == 0 ? "_uid" : BuildPathFromArray(m_aaosFieldPaths[nIdx]));
++            nIdx == 0 ? CPLString("_uid") : BuildPathFromArray(m_aaosFieldPaths[nIdx]));
+         if (CSLFindString(m_papszFieldsWithRawValue,
+                           m_aoSortColumns[i].osColumn) >= 0)
+         {

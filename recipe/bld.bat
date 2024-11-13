@@ -11,7 +11,7 @@ if  %vc% GTR 9 set MSVC_TS_VER=140
 
 REM Make sure to disable Arrow/Parquet dependencies for now, so they are only
 REM used in build_arrow_parquet
-
+REM Need C++20 for string methods (https://en.cppreference.com/w/cpp/string/basic_string_view/starts_with)
 cmake -G "Ninja" ^
       "%CMAKE_ARGS%" ^
       -DMSVC_VERSION="%MSVC_VER%" ^
@@ -21,6 +21,7 @@ cmake -G "Ninja" ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
       -DCMAKE_C_FLAGS="-DH5_BUILT_AS_DYNAMIC_LIB" ^
       -DCMAKE_CXX_FLAGS="-DH5_BUILT_AS_DYNAMIC_LIB" ^
+      -DCMAKE_CXX_STANDARD=20 ^
       -DBUILD_SHARED_LIBS=ON ^
       -DBUILD_PYTHON_BINDINGS:BOOL=OFF ^
       -DBUILD_JAVA_BINDINGS:BOOL=OFF ^
