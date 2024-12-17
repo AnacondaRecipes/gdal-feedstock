@@ -16,6 +16,7 @@ source:
     - patches/0002-c++20-syntax.patch
 
 build:
+  # trigger 1
   number: 8
   # never be built on s390x
   skip: True  # [linux and s390x]
