@@ -11,3 +11,4 @@ channels:
   - https://staging.continuum.io/prefect/fs/proj.4-feedstock/pr9/7ccb853
   - https://staging.continuum.io/prefect/fs/lcms2-feedstock/pr2/6d62137
   - https://staging.continuum.io/prefect/fs/poppler-feedstock/pr20/8944bdf
+  - https://staging.continuum.io/prefect/fs/geotiff-feedstock/pr12/0a9742a
