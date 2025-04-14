@@ -4,11 +4,3 @@ build_parameters:
 
 build_env_vars:
   ANACONDA_ROCKET_ENABLE_PY313 : yes
-
-channels:
-  - https://staging.continuum.io/prefect/fs/libtiff-feedstock/pr21/34f8d4b
-  - https://staging.continuum.io/prefect/fs/openjpeg-feedstock/pr6/34fbf3c
-  - https://staging.continuum.io/prefect/fs/proj.4-feedstock/pr9/7ccb853
-  - https://staging.continuum.io/prefect/fs/lcms2-feedstock/pr2/6d62137
-  - https://staging.continuum.io/prefect/fs/poppler-feedstock/pr20/8944bdf
-  - https://staging.continuum.io/prefect/fs/geotiff-feedstock/pr12/0a9742a

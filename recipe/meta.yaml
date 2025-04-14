@@ -56,7 +56,7 @@ requirements:
     - libpng {{ libpng }}
     - libpq 17.0
     - libspatialite
-    - libtiff 4.7.0
+    - libtiff {{ libtiff }}
     - libuuid  # [linux]
     - libwebp-base
     - libxml2 {{ libxml2 }}
@@ -120,7 +120,7 @@ outputs:
         - libpng {{ libpng }}
         - libpq 17.0
         - libspatialite
-        - libtiff 4.7.0
+        - libtiff {{ libtiff }}
         - libuuid  # [linux]
         - libwebp-base
         - libxml2 {{ libxml2 }}
@@ -214,7 +214,7 @@ outputs:
         - libpng {{ libpng }}
         - libpq 17.0
         - libspatialite
-        - libtiff 4.7.0
+        - libtiff {{ libtiff }}
         - libuuid  # [linux]
         - libwebp-base
         - libxml2 {{ libxml2 }}
