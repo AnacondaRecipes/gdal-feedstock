@@ -1,8 +1,0 @@
-# Use MacOSX SDK v10.14 because v10.10 fails with an error:
-# #file not found: /usr/lib/system/libsystem_coretls.dylib for architecture x86_64"
-MACOSX_SDK_VERSION:        # [osx and x86_64]
-  - "10.14"                # [osx and x86_64]
-MACOSX_DEPLOYMENT_TARGET:  # [osx and x86_64]
-  - "10.14"                # [osx and x86_64]
-CONDA_BUILD_SYSROOT:       # [osx and x86_64]
-  - /opt/MacOSX10.10.sdk   # [osx and x86_64]

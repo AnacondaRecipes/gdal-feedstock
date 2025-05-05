@@ -1,24 +1,26 @@
-REM reuse prior created build directory
 cd build
 if errorlevel 1 exit 1
 
 rd /s /q swig\python
 
-cmake -DPython_EXECUTABLE="%PYTHON%" ^
+FOR /F "tokens=*" %%g IN ('%PYTHON% -c "import numpy; print(numpy.get_include())"') do (SET Python_NumPy_INCLUDE_DIR=%%g)
+
+cmake "-UPython*" "-U*LATER_PLUGIN" ^
+      -DCMAKE_BUILD_TYPE=Release ^
+      -DPython_EXECUTABLE="%PYTHON%" ^
+      -DPython_NumPy_INCLUDE_DIR="%Python_NumPy_INCLUDE_DIR%" ^
       -DGDAL_PYTHON_INSTALL_PREFIX:PATH="%STDLIB_DIR%\.." ^
       -DBUILD_PYTHON_BINDINGS:BOOL=ON ^
-      -DGDAL_USE_EXTERNAL_LIBS=OFF ^
-      -DGDAL_BUILD_OPTIONAL_DRIVERS:BOOL=OFF ^
-      -DOGR_BUILD_OPTIONAL_DRIVERS:BOOL=OFF ^
       "%SRC_DIR%"
 if errorlevel 1 exit /b 1
 
-REM swig ...
+cmake --build . --target python_generated_files
+if errorlevel 1 exit /b 1
+
 cd swig\python
 if errorlevel 1 exit /b 1
-copy "%SRC_DIR%"\swig\python\osgeo\*.py osgeo
-if errorlevel 1 exit /b 1
-copy "%SRC_DIR%"\swig\python\extensions\*.c* extensions
-if errorlevel 1 exit /b 1
-%PYTHON% -m pip install --no-deps --no-build-isolation .
+
+:: Have to use `setup.py install` here to make sure pip creates *.exe files for console_scripts without absolute paths
+:: to invalid python interpreters.
+%PYTHON% setup.py install
 if errorlevel 1 exit /b 1
