@@ -3,29 +3,24 @@
 set -xe
 
 # now re-configure with BUILD_PYTHON_BINDINGS:BOOL=ON
-# reuse prior created build directory
+
 cd build
 
 rm -rf swig/python
 
-cmake -DPython_EXECUTABLE="$PYTHON" \
+Python_LOOKUP_VERSION=$($PYTHON -c "import sys; print(str(sys.version_info.major)+'.'+str(sys.version_info.minor)+'.'+str(sys.version_info.micro))")
+
+Python_NumPy_INCLUDE_DIR=$($PYTHON -c "import numpy; print(numpy.get_include())")
+
+cmake "-UPython*" "-U*LATER_PLUGIN" \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DPython_LOOKUP_VERSION=${Python_LOOKUP_VERSION} \
+      -DPython_NumPy_INCLUDE_DIR=${Python_NumPy_INCLUDE_DIR} \
       -DBUILD_PYTHON_BINDINGS:BOOL=ON \
-      -DGDAL_USE_EXTERNAL_LIBS=OFF \
-      -DGDAL_BUILD_OPTIONAL_DRIVERS:BOOL=OFF \
-      -DOGR_BUILD_OPTIONAL_DRIVERS:BOOL=OFF \
       ${SRC_DIR} || (cat CMakeFiles/CMakeError.log;false)
 
-# swig ...
+cmake --build . --target python_generated_files
 cd swig/python
-cp ${SRC_DIR}/swig/python/osgeo/*.py osgeo/
-cp ${SRC_DIR}/swig/python/extensions/*.c* extensions/
-
-cat >pyproject.toml <<EOF
-[build-system]
-requires = ["setuptools>=40.8.0", "wheel"]
-build-backend = "setuptools.build_meta"
-EOF
 
 $PYTHON setup.py build_ext
-
-$PYTHON -m pip install --no-deps --no-build-isolation --ignore-installed .
+$PYTHON -m pip install . --no-deps --ignore-installed --no-build-isolation -vvv

@@ -39,4 +39,3 @@ if errorlevel 1 exit 1
 :: check all drivers
 gdal_translate --formats
 if errorlevel 1 exit 1
-
