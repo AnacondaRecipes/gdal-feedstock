@@ -96,6 +96,7 @@ outputs:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
         - expat {{ expat }}
         - libkml {{ libkml }}
+        - libboost-headers {{ libboost }}
 
   - name: libgdal-arrow-parquet
     script: build_plugin.sh  # [unix]
