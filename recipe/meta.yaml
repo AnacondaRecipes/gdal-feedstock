@@ -11,7 +11,7 @@ source:
     - patches/000_cmake.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip_compile_pyc:
     - share/bash-completion/completions/*.py
   ignore_run_exports_from:
@@ -46,7 +46,7 @@ requirements:
     - lerc 4.0
     - libarchive 3.7
     - libcurl {{ libcurl }}
-    - libboost {{ boost }}
+    - libboost-headers {{ libboost }}
     - libdeflate 1.22
     - libiconv 1.16
     - libkml {{ libkml }}
@@ -95,7 +95,6 @@ outputs:
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
         - expat {{ expat }}
-        - libboost {{ boost }}
         - libkml {{ libkml }}
 
   - name: libgdal-arrow-parquet
