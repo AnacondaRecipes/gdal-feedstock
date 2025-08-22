@@ -64,7 +64,7 @@ requirements:
     # - qhull
     - setuptools
     - sqlite {{ sqlite }}
-    - xerces-c {{ xerces-c }}
+    - xerces-c {{ xerces_c }}
     - xz {{ xz }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
