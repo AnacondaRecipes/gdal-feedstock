@@ -11,7 +11,7 @@ source:
     - patches/000_cmake.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip_compile_pyc:
     - share/bash-completion/completions/*.py
   ignore_run_exports_from:
@@ -32,9 +32,9 @@ requirements:
     - make  # [not win]
     - ninja  # [win]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - swig
-    - patch  # [osx]
   host:
     - blosc 1.21
     - expat {{ expat }}
@@ -46,7 +46,7 @@ requirements:
     - lerc 4.0
     - libarchive 3.7
     - libcurl {{ libcurl }}
-    - libboost {{ boost }}
+    - libboost-headers {{ libboost }}
     - libdeflate 1.22
     - libiconv 1.16
     - libkml {{ libkml }}
@@ -64,7 +64,7 @@ requirements:
     # - qhull
     - setuptools
     - sqlite {{ sqlite }}
-    - xerces-c
+    - xerces-c {{ xerces_c }}
     - xz {{ xz }}
     - zlib {{ zlib }}
     - zstd {{ zstd }}
@@ -95,8 +95,8 @@ outputs:
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
         - expat {{ expat }}
-        - libboost {{ boost }}
         - libkml {{ libkml }}
+        - libboost-headers {{ libboost }}
 
   - name: libgdal-arrow-parquet
     script: build_plugin.sh  # [unix]
@@ -105,6 +105,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -140,6 +141,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -172,6 +174,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -211,6 +214,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -243,6 +247,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -273,6 +278,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -305,6 +311,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -337,6 +344,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -370,6 +378,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -404,6 +413,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -436,6 +446,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -470,6 +481,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -502,6 +514,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -554,6 +567,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - cmake
         - make  # [unix]
@@ -686,6 +700,7 @@ outputs:
       build:
         - cmake
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
@@ -719,6 +734,7 @@ outputs:
 #      build:
 #        - cmake
 #        - {{ compiler('c') }}
+#        - {{ stdlib("c") }}
 #        - {{ compiler('cxx') }}
 #        - pkg-config  # [not win]
 #        - make  # [unix]
