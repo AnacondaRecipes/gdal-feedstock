@@ -647,10 +647,10 @@ outputs:
         - rgb2pct --help
         - ogrmerge --help
         - ogr_layer_algebra --help
-      about:
-        summary: Python wrapper for the Geospatial Data Abstraction Library (GDAL)
-        license: MIT
-        license_file: LICENSE.TXT
+    about:
+      summary: Python wrapper for the Geospatial Data Abstraction Library (GDAL)
+      license: MIT
+      license_file: LICENSE.TXT
 
 # Missing libadbc-driver-manager to build this plugin.
 #  - name: libgdal-adbc
