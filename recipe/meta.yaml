@@ -14,9 +14,6 @@ build:
   number: 2
   skip_compile_pyc:
     - share/bash-completion/completions/*.py
-  script_env:  # [osx]
-    - CONDA_OVERRIDE_OSX=11.1  # [osx]
-    - MACOSX_DEPLOYMENT_TARGET=11.1  # [osx]
   ignore_run_exports_from:
     - kealib
     - openjpeg {{ openjpeg }}
@@ -39,29 +36,29 @@ requirements:
     - {{ compiler('cxx') }}
     - swig
   host:
-    - blosc 1.21
+    - blosc {{ blosc }}
     - expat {{ expat }}
     - geos {{ geos }}
-    - geotiff 1.7
+    - geotiff {{ geotiff }}
     - giflib {{ giflib }}  # [not win]
     - jpeg {{ jpeg }}
-    - json-c 0.16  # [not win]
-    - lerc 4.0
-    - libarchive 3.8
+    - json-c {{ json_c }}  # [not win]
+    - lerc {{ lerc }}
+    - libarchive {{ libarchive }}
     - libcurl {{ libcurl }}
     - libboost-headers {{ libboost }}
-    - libdeflate 1.22
-    - libiconv 1.16
+    - libdeflate {{libdeflate }}
+    - libiconv {{ libiconv }}
     - libkml {{ libkml }}
     - libpng {{ libpng }}
-    - libspatialite 5.1
+    - libspatialite {{ libspatialite }}
     - libtiff {{ libtiff }}
     - libwebp-base {{ libwebp }}
     - libxml2 {{ libxml2 }}
-    - lz4-c 1.9
-    - minizip 4.0  # [linux]
+    - lz4-c {{ lz4_c }}
+    - minizip {{ minizip }}  # [linux]
     - openssl {{ openssl }}
-    - pcre2 10.42
+    - pcre2 {{ pcre2 }}
     - proj {{ proj }}
     # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
     # - qhull
@@ -72,10 +69,10 @@ requirements:
     - zlib {{ zlib }}
     - zstd {{ zstd }}
     # For these plugins, we need the headers for the core sources
-    - kealib 1.5
+    - kealib {{ kealib }}
     - openjpeg {{ openjpeg }}
-    - tiledb 2.26
-    - libnetcdf 4.8
+    - tiledb {{ tiledb }}
+    - libnetcdf {{ libnetcdf }}
 #    - libheif
 #    - libadbc-driver-manager  # [not win]
   run_constrained:
@@ -89,9 +86,6 @@ test:
 
 outputs:
   - name: libgdal-core
-    requirements:
-      run:
-        - jpeg {{ jpeg }}
 
   - name: libgdal-core-devel
     requirements:
@@ -115,8 +109,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - arrow-cpp 19.0
-        - parquet-cpp 1.5
+        - arrow-cpp {{ arrow_cpp }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -224,7 +217,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - libpq 17.4
+        - libpq {{ libpq }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -257,7 +250,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - libpq 17.4
+        - libpq {{ libpq }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -288,7 +281,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - freexl 2.0
+        - freexl {{ freexl }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -321,7 +314,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - cfitsio 3
+        - cfitsio {{ cfitsio }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -354,7 +347,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - libaec 1.1
+        - libaec {{ libaec }}
         - libpng {{ libpng }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
@@ -389,7 +382,7 @@ outputs:
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - {{ pin_subpackage('libgdal-hdf5', exact=True) }}
-        - kealib 1.5
+        - kealib {{ kealib }}
         - hdf5 {{ hdf5 }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
@@ -423,7 +416,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - tiledb >=2.15  # Minimum set via CMake: https://github.com/OSGeo/gdal/blob/v3.10.3/cmake/helpers/CheckDependentLibrariesTileDB.cmake
+        - tiledb {{ tiledb }}  # Minimum set via CMake: https://github.com/OSGeo/gdal/blob/v3.10.3/cmake/helpers/CheckDependentLibrariesTileDB.cmake
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -458,7 +451,7 @@ outputs:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - {{ pin_subpackage('libgdal-hdf5', exact=True) }}
         - {{ pin_subpackage('libgdal-hdf4', exact=True) }}
-        - libnetcdf
+        - libnetcdf {{ libnetcdf}}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -491,7 +484,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - hdf5
+        - hdf5 {{ hdf5 }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -524,7 +517,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - hdf4
+        - hdf4 {{ hdf4 }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
@@ -582,12 +575,11 @@ outputs:
       host:
         - python
         - pip
-        - numpy
+        - numpy {{ numpy }}
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - setuptools >=67.0.0
       run:
         - python
-        - {{ pin_compatible("numpy") }}
         - libgdal-core {{ version }}.*
     test:
       files:
@@ -710,7 +702,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - libavif 1.1
+        - libavif {{ libavif }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
