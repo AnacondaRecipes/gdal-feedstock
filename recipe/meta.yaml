@@ -177,7 +177,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - poppler 24.09
+        - poppler 25.07
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
         - {{ pin_compatible('poppler', max_pin='x.x.x') }}
