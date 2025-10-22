@@ -112,7 +112,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - arrow-cpp 21.0.0
+        - arrow-cpp {{ arrow_cpp}}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
