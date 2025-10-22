@@ -75,6 +75,9 @@ requirements:
     - libnetcdf {{ libnetcdf }}
 #    - libheif
 #    - libadbc-driver-manager  # [not win]
+  run:
+    # this should come from run_exports, but somehow it doesn't
+    - {{ pin_compatible('jpeg') }}
   run_constrained:
     - libgdal {{ version }}.*
 
@@ -86,7 +89,7 @@ test:
 
 outputs:
   - name: libgdal-core
-
+    
   - name: libgdal-core-devel
     requirements:
       run:
