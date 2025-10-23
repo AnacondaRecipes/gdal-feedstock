@@ -578,7 +578,8 @@ outputs:
       host:
         - python
         - pip
-        - numpy {{ numpy }}
+        - numpy 2.1 # [py<313]
+        - numpy {{ numpy }} # [py>=313]
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - setuptools >=67.0.0
       run:
