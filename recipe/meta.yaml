@@ -521,6 +521,7 @@ outputs:
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - hdf4 {{ hdf4 }}
+        - libaec {{ libaec }} # provides required szip
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
