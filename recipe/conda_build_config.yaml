@@ -2,3 +2,5 @@ c_compiler_version:   # [osx]
   - 17.0.6            # [osx]
 cxx_compiler_version: # [osx]
   - 17.0.6            # [osx]
+cmake:
+  - 3.31.2
