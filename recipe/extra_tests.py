@@ -12,6 +12,7 @@ from osgeo import ogr
 fname = os.path.join(os.path.dirname(__file__), 'test_data', 'sites.shp')
 
 # Open the data source.
+print("Opening data source")
 driver = ogr.GetDriverByName('ESRI Shapefile')
 data_source = driver.Open(fname, 0)
 assert data_source is not None, 'Could not open {}'.format(fname)
@@ -19,6 +20,7 @@ assert data_source is not None, 'Could not open {}'.format(fname)
 # Get the layer and loop through the features.
 layer = data_source.GetLayer()
 feature = layer.GetNextFeature()
+print("Looping through features")
 while feature:
     # Get the attributes.
     feature_id = feature.GetFieldAsString('id')
@@ -37,4 +39,5 @@ while feature:
     feature = layer.GetNextFeature()
 
 # Close the data source and file.
+print("Closing data source and file")
 data_source.Destroy()

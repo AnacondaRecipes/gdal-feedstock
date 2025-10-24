@@ -64,7 +64,7 @@ def has_geos():
         ogr.UseExceptions()
     return hasgeos
 
-
+print("Testing GEOS availability")
 assert has_geos(), "GEOS not available within GDAL"
 
 
@@ -84,7 +84,7 @@ def has_proj():
         hasproj = False
     return hasproj
 
-
+print("Testing PROJ availability")
 assert has_proj(), "PROJ not available within GDAL"
 
 # Test https://github.com/swig/swig/issues/567
@@ -99,20 +99,23 @@ def gen_list(N):
         geom = make_geom()
         yield i
 
-
+print("Testing https://github.com/swig/swig/issues/567")
 N = 10
 assert list(gen_list(N)) == list(range(N))
 
 # https://github.com/conda-forge/gdal-feedstock/issues/567
 # test libblosc / zarr
+print("Testing libblosc / zarr")
 fname = os.path.join(os.path.dirname(__file__), 'test_data', 'test.zarr')
 ds = gdal.Open(fname)
 assert ds.RasterXSize == 10
 
 # This module does some additional tests.
+print("Testing extra_tests.py")
 import extra_tests
 
 # Test international encoding.
+print("Testing international encoding")
 # https://github.com/conda-forge/libgdal-feedstock/issues/32
 driver = ogr.GetDriverByName("ESRI Shapefile")
 ds = driver.CreateDataSource("test.shp")
@@ -130,3 +133,5 @@ lyr.CreateFeature(feature)
 
 lyr = None
 ds = None
+
+print("Done testing")
