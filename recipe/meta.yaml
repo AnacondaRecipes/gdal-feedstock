@@ -41,7 +41,7 @@ requirements:
     - geos {{ geos }}
     - geotiff 1.7
     - giflib {{ giflib }}  # [not win]
-    - jpeg {{ jpeg }}
+    - jpeg ==9f
     - json-c 0.16  # [not win]
     - lerc 4.0
     - libarchive 3.7
@@ -88,7 +88,7 @@ outputs:
   - name: libgdal-core
     requirements:
       run:
-        - jpeg {{ jpeg }}
+        - jpeg ==9f
 
   - name: libgdal-core-devel
     requirements:
@@ -148,7 +148,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - openjpeg {{ openjpeg }}
+        - openjpeg ==9f
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
