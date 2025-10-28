@@ -148,7 +148,7 @@ outputs:
         - ninja  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - openjpeg ==9f
+        - openjpeg {{ openjpeg }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
     test:
