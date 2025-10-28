@@ -30,7 +30,7 @@ requirements:
     - cmake
     - pkg-config >=0.21  # [not win]
     - make  # [not win]
-    - ninja  # [win]
+    - ninja-base  # [win]
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
@@ -109,7 +109,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - arrow-cpp 19.0
@@ -145,7 +145,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - openjpeg {{ openjpeg }}
@@ -178,7 +178,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - poppler 24.09
@@ -218,7 +218,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - libpq {{ libpq }}
@@ -251,7 +251,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - libpq {{ libpq }}
@@ -282,7 +282,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - freexl 2.0
@@ -315,7 +315,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - cfitsio 3
@@ -348,7 +348,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - libaec {{ libaec }}
@@ -382,7 +382,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - {{ pin_subpackage('libgdal-hdf5', exact=True) }}
@@ -417,7 +417,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - tiledb >=2.15  # Minimum set via CMake: https://github.com/OSGeo/gdal/blob/v3.10.3/cmake/helpers/CheckDependentLibrariesTileDB.cmake
@@ -450,7 +450,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - {{ pin_subpackage('libgdal-hdf5', exact=True) }}
@@ -485,7 +485,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - hdf5
@@ -518,7 +518,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - hdf4
@@ -571,7 +571,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         - numpy                                  # [build_platform != target_platform]
@@ -671,7 +671,7 @@ outputs:
 #        - {{ compiler('cxx') }}
 #        - pkg-config  # [not win]
 #        - make  # [unix]
-#        - ninja  # [win]
+#        - ninja-base  # [win]
 #      host:
 #        - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
 #        - libadbc-driver-manager
@@ -704,7 +704,7 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config  # [not win]
         - make  # [unix]
-        - ninja  # [win]
+        - ninja-base  # [win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - libavif {{ libavif }}
@@ -738,7 +738,7 @@ outputs:
 #        - {{ compiler('cxx') }}
 #        - pkg-config  # [not win]
 #        - make  # [unix]
-#        - ninja  # [win]
+#        - ninja-base  # [win]
 #      host:
 #        - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
 #        - libheif

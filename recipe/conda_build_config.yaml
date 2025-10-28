@@ -1,5 +1,5 @@
-# Undefined symbols for architecture arm64:
-# "std::__1::bad_function_call::~bad_function_call()"
+# OSX build failed with the latest compiler version 20, reason:
+# Undefined symbols for architecture arm64: "std::__1::bad_function_call::~bad_function_call()"
 c_compiler_version:    # [osx]
   - 17                 # [osx]
 cxx_compiler_version:  # [osx]
