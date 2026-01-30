@@ -11,7 +11,7 @@ source:
     - patches/000_cmake.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip_compile_pyc:
     - share/bash-completion/completions/*.py
   ignore_run_exports_from:
@@ -66,7 +66,7 @@ requirements:
     - sqlite {{ sqlite }}
     - xerces-c {{ xerces_c }}
     - xz {{ xz }}
-    - zlib {{ zlib }}
+    - libzlib {{ libzlib }}
     - zstd {{ zstd }}
     # For these plugins, we need the headers for the core sources
     - kealib {{ kealib }}
