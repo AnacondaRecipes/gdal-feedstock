@@ -17,8 +17,11 @@ if "%PKG_NAME%" == "libgdal-arrow-parquet" (
       -DGDAL_USE_PARQUET=ON ^
       -DGDAL_USE_ARROW=ON ^
       -DGDAL_USE_ARROWDATASET=ON ^
+      -DGDAL_USE_ARROWCOMPUTE=ON ^
+      -DARROW_USE_STATIC_LIBRARIES=OFF ^
       -DArrow_DIR=%LIBRARY_PREFIX:\=/%/cmake/Arrow ^
       -DParquet_DIR=%LIBRARY_PREFIX:\=/%/cmake/Parquet ^
+      -DArrowCompute_DIR=%LIBRARY_PREFIX:\=/%/cmake/ArrowCompute ^
       -DArrowDataset_DIR=%LIBRARY_PREFIX:\=/%/cmake/ArrowDataset ^
       -DArrowAcero_DIR=%LIBRARY_PREFIX:\=/%/cmake/ArrowAcero ^
       -DOGR_ENABLE_DRIVER_ARROW=ON ^
