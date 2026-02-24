@@ -12,7 +12,7 @@ source:
     - patches/000_cmake.patch  # [osx]
 
 build:
-  number: 1
+  number: 2
   skip_compile_pyc:
     - share/bash-completion/completions/*.py
   ignore_run_exports_from:
@@ -67,7 +67,7 @@ requirements:
     - sqlite {{ sqlite }}
     - xerces-c {{ xerces_c }}
     - xz {{ xz }}
-    - libzlib {{ libzlib }}
+    - zlib {{ zlib }}
     - zstd {{ zstd }}
     # For these plugins, we need the headers for the core sources
     - kealib {{ kealib }}
@@ -79,6 +79,7 @@ requirements:
   run:
     # this should come from run_exports, but somehow it doesn't
     - {{ pin_compatible('jpeg') }}
+    - lerc
   run_constrained:
     - libgdal {{ version }}.*
 
