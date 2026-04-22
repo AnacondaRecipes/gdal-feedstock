@@ -1,0 +1,24 @@
+anaconda_config_version: 1
+upstream_sources:
+  - webpage:
+      url: http://download.osgeo.org/gdal/CURRENT/
+      regex: gdal-([\d.]+)\.tar\.xz
+    packages:
+      - gdal
+      - libgdal
+      - libgdal-arrow-parquet
+      - libgdal-avif
+      - libgdal-core
+      - libgdal-core-devel
+      - libgdal-fits
+      - libgdal-grib
+      - libgdal-hdf4
+      - libgdal-hdf5
+      - libgdal-jp2openjpeg
+      - libgdal-kea
+      - libgdal-netcdf
+      - libgdal-pdf
+      - libgdal-pg
+      - libgdal-postgisraster
+      - libgdal-tiledb
+      - libgdal-xls
