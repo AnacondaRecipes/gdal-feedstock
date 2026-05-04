@@ -1,5 +1,5 @@
 {% set name = "gdal" %}
-{% set version = "3.11.4" %}
+{% set version = "3.12.4" %}
 
 package:
   name: lib{{ name }}-core
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://download.osgeo.org/{{ name }}/{{ version }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 6401eba2bb63f5ef7a08d2157f240194f06d508d096898a705637aeea9d3bbe8
+  sha256: 813094498c17522ac42821a5ea1ea783d8326c0adf286cce86a949038bd09198
   patches:
     - patches/000_cmake.patch  # [osx]
 
 build:
-  number: 2
+  number: 0
   skip_compile_pyc:
     - share/bash-completion/completions/*.py
   ignore_run_exports_from:
@@ -54,11 +54,11 @@ requirements:
     - libpng {{ libpng }}
     - libspatialite {{ libspatialite }}
     - libtiff {{ libtiff }}
-    - libwebp-base {{ libwebp }}
+    - libwebp-base {{ libwebp_base }}
     - libxml2 {{ libxml2 }}
     - lz4-c {{ lz4_c }}
     - minizip {{ minizip }}  # [linux]
-    - openssl 3.0.18
+    - openssl {{ openssl }}
     - pcre2 {{ pcre2 }}
     - proj {{ proj }}
     # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
@@ -492,6 +492,7 @@ outputs:
         - hdf5 {{ hdf5 }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
+        - proj
     test:
       commands:
         - test -f ${PREFIX}/lib/gdalplugins/${GDAL_PLUGIN_TYPE}_${GDAL_PLUGIN_NAME}${SHLIB_EXT}      # [unix]
