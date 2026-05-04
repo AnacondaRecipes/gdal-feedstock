@@ -492,6 +492,7 @@ outputs:
         - hdf5 {{ hdf5 }}
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
+        - proj
     test:
       commands:
         - test -f ${PREFIX}/lib/gdalplugins/${GDAL_PLUGIN_TYPE}_${GDAL_PLUGIN_NAME}${SHLIB_EXT}      # [unix]
