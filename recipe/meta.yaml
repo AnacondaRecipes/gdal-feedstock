@@ -60,6 +60,7 @@ requirements:
     - minizip {{ minizip }}  # [linux]
     - openssl {{ openssl }}
     - llvm-openmp 22.1.2 # [osx]
+    - libgomp 15.2.0 # [linux]
     - pcre2 {{ pcre2 }}
     - proj {{ proj }}
     # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
