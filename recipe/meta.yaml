@@ -81,6 +81,7 @@ requirements:
   run:
     # this should come from run_exports, but somehow it doesn't
     - {{ pin_compatible('libjpeg-turbo') }}
+    - libgomp
     - lerc
   run_constrained:
     - libgdal {{ version }}.*
