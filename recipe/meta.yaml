@@ -1,5 +1,5 @@
 {% set name = "gdal" %}
-{% set version = "3.12.4" %}
+{% set version = "3.13.0" %}
 
 package:
   name: lib{{ name }}-core
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://download.osgeo.org/{{ name }}/{{ version }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 813094498c17522ac42821a5ea1ea783d8326c0adf286cce86a949038bd09198
+  sha256: 1c537dd2f4d66f05534ae419bc2af495c2204ce13bb266c8cbd867dd6705f0c7
   patches:
     - patches/000_cmake.patch  # [osx]
 
@@ -42,7 +42,7 @@ requirements:
     - geos {{ geos }}
     - geotiff {{ geotiff }}
     - giflib {{ giflib }}  # [not win]
-    - jpeg {{ jpeg }}
+    - libjpeg-turbo {{ libjpeg_turbo }}
     - json-c {{ json_c }}  # [not win]
     - lerc {{ lerc }}
     - libarchive {{ libarchive }}
@@ -59,6 +59,8 @@ requirements:
     - lz4-c {{ lz4_c }}
     - minizip {{ minizip }}  # [linux]
     - openssl {{ openssl }}
+    - llvm-openmp 22.1.2 # [osx]
+    - libgomp 15.2.0 # [linux]
     - pcre2 {{ pcre2 }}
     - proj {{ proj }}
     # qhull disabled because of https://github.com/conda-forge/qgis-feedstock/issues/284#issuecomment-1356490896
@@ -78,7 +80,8 @@ requirements:
 #    - libadbc-driver-manager  # [not win]
   run:
     # this should come from run_exports, but somehow it doesn't
-    - {{ pin_compatible('jpeg') }}
+    - {{ pin_compatible('libjpeg-turbo') }}
+    - libgomp # [linux]
     - lerc
   run_constrained:
     - libgdal {{ version }}.*
@@ -182,7 +185,7 @@ outputs:
         - pkg-config  # [not win]
       host:
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
-        - poppler 25.07
+        - poppler 26.04
       run:
         - {{ pin_subpackage('libgdal-core', exact=True) }}
         - {{ pin_compatible('poppler', max_pin='x.x.x') }}
