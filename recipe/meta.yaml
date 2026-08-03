@@ -1,5 +1,5 @@
 {% set name = "gdal" %}
-{% set version = "3.13.0" %}
+{% set version = "3.13.1" %}
 
 package:
   name: lib{{ name }}-core
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://download.osgeo.org/{{ name }}/{{ version }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 1c537dd2f4d66f05534ae419bc2af495c2204ce13bb266c8cbd867dd6705f0c7
+  sha256: 7398fb132753140740fac4f099f0dbe49d1ad074c4162290c308e067c46b7f92
   patches:
     - patches/000_cmake.patch  # [osx]
 
@@ -578,9 +578,6 @@ outputs:
         - cmake
         - make        # [unix]
         - ninja-base  # [win]
-        - python                                 # [build_platform != target_platform]
-        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-        - numpy                                  # [build_platform != target_platform]
         - swig
       host:
         - python
