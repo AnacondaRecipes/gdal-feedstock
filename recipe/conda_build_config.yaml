@@ -4,3 +4,6 @@ cxx_compiler_version: # [osx]
   - 17.0.6            # [osx]
 libxml2:
   - 2.15.3
+# TODO: remove once conda_build_config.yaml pins libpq to 18
+libpq:
+  - 18.4
