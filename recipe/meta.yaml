@@ -12,7 +12,7 @@ source:
     - patches/000_cmake.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip_compile_pyc:
     - share/bash-completion/completions/*.py
   ignore_run_exports_from:
@@ -582,8 +582,7 @@ outputs:
       host:
         - python
         - pip
-        - numpy 2.0.2=*_2 # [py<313]
-        - numpy {{ numpy }} # [py>=313]
+        - numpy {{ numpy }}
         - {{ pin_subpackage('libgdal-core-devel', exact=True) }}
         - setuptools >=67.0.0
       run:

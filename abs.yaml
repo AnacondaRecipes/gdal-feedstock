@@ -1,0 +1,11 @@
+channels:
+# glib
+  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/1d7d6829-9a08-4ac1-9830-47500ab25ff5
+  # libspatialite
+  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/32e70ef0-d31a-4cca-b70f-2e2bbfd2a869
+  # geotiff
+  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/6aed810f-49ac-492c-a53d-173847d3c864
+  # poppler
+  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/a0846358-560c-4ac5-ad81-5ec0f564d20c
+  # tiledb
+  - https://package-build.anaconda.com/pkg-orchestrator/v1/channels/graphs/4a092a04-2b0e-4b2f-adda-bfb02261c364
